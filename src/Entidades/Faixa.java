@@ -11,13 +11,13 @@ package Entidades;
  * @author Leonardo Dias
  */
 public class Faixa {
-    int id;
-    String url;
-    int duracao; //em segundos
-    String nome;
-    String autor;
-    String disco;
-    int discoId;
+    private int id;
+    private String url;
+    private int duracao; //em segundos
+    private String nome;
+    private String autor;
+    private String disco;
+    private int discoId;
 
     public Faixa(int id, String url, int duracao, String nome, String autor, String disco, int discoId) {
         this.id = id;
@@ -30,7 +30,13 @@ public class Faixa {
     }
     
     public Faixa(){
-        
+        id = -1;
+        url = "";
+        duracao = -1;
+        nome = "";
+        autor = "";
+        discoId = -1;
+                
     }
 
     public int getId() {
