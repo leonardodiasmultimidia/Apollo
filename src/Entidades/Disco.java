@@ -12,19 +12,19 @@ import java.util.ArrayList;
  *
  * @author Leonardo Dias
  */
-public class Lista {
+public class Disco {
     
     private int id;
-    private ArrayList<Faixa> lista;
+    private ArrayList<Faixa> disco;
     
-    public Lista(int id, ArrayList<Faixa> lista){
+    public Disco(int id, ArrayList<Faixa> disco){
         this.id = id;
-        this.lista = lista;
+        this.disco = disco;
     }
     
-    public Lista(){
+    public Disco(){
         id = -1;
-        lista = null;
+        disco = null;
     }
 
     public int getId() {
@@ -35,29 +35,27 @@ public class Lista {
         this.id = id;
     }
 
-    public ArrayList<Faixa> getLista() {
-        return lista;
+    public ArrayList<Faixa> getDisco() {
+        return disco;
     }
 
-    public void setLista(ArrayList<Faixa> lista) {
-        this.lista = lista;
+    public void setDisco(ArrayList<Faixa> disco) {
+        this.disco = disco;
     }
     
     public int getNumeroDeFaixas(){
-        return lista.size();
+        return disco.size();
     }
     
     public void addFaixa(Faixa faixa){
-        lista.add(faixa);
+        disco.add(faixa);
     }
     
     public void removeFaixa(Faixa faixa){
-        lista.remove(faixa);
+        disco.remove(faixa);
     }
     
     public void removeFaixaByPos(int pos){
-        lista.remove(pos);
+        disco.remove(pos);
     }
-    
-    
 }
