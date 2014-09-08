@@ -16,17 +16,13 @@ public class Faixa {
     private int duracao; //em segundos
     private String nome;
     private String autor;
-    private String disco;
-    private int discoId;
 
-    public Faixa(int id, String url, int duracao, String nome, String autor, String disco, int discoId) {
+    public Faixa(int id, String url, int duracao, String nome, String autor) {
         this.id = id;
         this.url = url;
         this.duracao = duracao;
         this.nome = nome;
         this.autor = autor;
-        this.disco = disco;
-        this.discoId = discoId;
     }
     
     public Faixa(){
@@ -34,9 +30,7 @@ public class Faixa {
         url = "";
         duracao = -1;
         nome = "";
-        autor = "";
-        discoId = -1;
-                
+        autor = "";            
     }
 
     public int getId() {
@@ -77,21 +71,5 @@ public class Faixa {
 
     public void setAutor(String autor) {
         this.autor = autor;
-    }
-
-    public String getDisco() {
-        return disco;
-    }
-
-    public void setDisco(String disco) {
-        this.disco = disco;
-    }
-
-    public int getDiscoId() {
-        return discoId;
-    }
-
-    public void setDiscoId(int discoId) {
-        this.discoId = discoId;
     }
 }
