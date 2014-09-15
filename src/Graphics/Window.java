@@ -6,33 +6,43 @@
 
 package Graphics;
 
-import Tocador.GerenciadorDeExecucao;
+import DAO.FaixasDAO;
+import Entidades.Faixa;
+import Player.Configuracoes;
+import Player.ListaDeReproducao;
 import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.FileNotFoundException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import uk.co.caprica.vlcj.binding.LibVlc;
 
 /**
  *
  * @author Leonardo Dias
  */
-public class Window extends javax.swing.JFrame implements KeyListener{
+public class Window extends javax.swing.JFrame{
 
     /**
      * Creates new form Window
      */
     public Window() {
-        setMinimumSize(new Dimension(530,320));
+        setMinimumSize(new Dimension(759,291));
         initComponents();
-        addKeyListener(this);
+        FaixasDAO daofaixas = new FaixasDAO();
+        ListaDeReproducao.iniciaLista();
         try {
-            GDE = new GerenciadorDeExecucao();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JavaLayerException ex) {
+            ListaDeReproducao.insereOutraLista(daofaixas.getListFaixaByAutor(""));
+                        Configuracoes.changeShuffle();
+            ListaDeReproducao.tocar();
+            ListaDeReproducao.proxMusica();
+            ListaDeReproducao.tocar();
+            ListaDeReproducao.antMusica();
+            ListaDeReproducao.tocar();
+            ListaDeReproducao.proxMusica();
+            ListaDeReproducao.tocar();
+            ListaDeReproducao.proxMusica();
+            ListaDeReproducao.tocar();
+        } catch (SQLException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -48,8 +58,12 @@ public class Window extends javax.swing.JFrame implements KeyListener{
 
         Art = new javax.swing.JPanel();
         Reproduction = new javax.swing.JPanel();
-        Tips = new javax.swing.JPanel();
+        labelListaReproducao = new java.awt.Label();
         jPanel1 = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,40 +74,38 @@ public class Window extends javax.swing.JFrame implements KeyListener{
         Art.setLayout(ArtLayout);
         ArtLayout.setHorizontalGroup(
             ArtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
         ArtLayout.setVerticalGroup(
             ArtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 255, Short.MAX_VALUE)
         );
 
-        Reproduction.setBackground(new java.awt.Color(0, 0, 0));
-        Reproduction.setMinimumSize(new java.awt.Dimension(300, 150));
+        Reproduction.setBackground(new java.awt.Color(200, 200, 200));
+        Reproduction.setMaximumSize(new java.awt.Dimension(200, 32767));
+        Reproduction.setMinimumSize(new java.awt.Dimension(200, 150));
+        Reproduction.setPreferredSize(new java.awt.Dimension(200, 315));
+
+        labelListaReproducao.setText("label1");
 
         javax.swing.GroupLayout ReproductionLayout = new javax.swing.GroupLayout(Reproduction);
         Reproduction.setLayout(ReproductionLayout);
         ReproductionLayout.setHorizontalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGroup(ReproductionLayout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(labelListaReproducao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(84, Short.MAX_VALUE))
         );
         ReproductionLayout.setVerticalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 191, Short.MAX_VALUE)
+            .addGroup(ReproductionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelListaReproducao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        Tips.setBackground(new java.awt.Color(0, 0, 0));
-        Tips.setMinimumSize(new java.awt.Dimension(300, 60));
-
-        javax.swing.GroupLayout TipsLayout = new javax.swing.GroupLayout(Tips);
-        Tips.setLayout(TipsLayout);
-        TipsLayout.setHorizontalGroup(
-            TipsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
-        );
-        TipsLayout.setVerticalGroup(
-            TipsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 69, Short.MAX_VALUE)
-        );
+        labelListaReproducao.getAccessibleContext().setAccessibleName("Lista de reprodução");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(200, 60));
@@ -110,6 +122,26 @@ public class Window extends javax.swing.JFrame implements KeyListener{
             .addGap(0, 60, Short.MAX_VALUE)
         );
 
+        jMenu1.setText("Arquivo");
+        jMenu1.setActionCommand("Arquivo");
+        jMenuBar1.add(jMenu1);
+        jMenu1.getAccessibleContext().setAccessibleName("Arquivo");
+
+        jMenu2.setText("Faixas");
+
+        jMenuItem1.setActionCommand("buscarFaixas");
+        jMenuItem1.setLabel("Buscar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu2);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,9 +152,7 @@ public class Window extends javax.swing.JFrame implements KeyListener{
                     .addComponent(Art, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Reproduction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Tips, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Reproduction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -130,19 +160,20 @@ public class Window extends javax.swing.JFrame implements KeyListener{
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Reproduction, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Art, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Reproduction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(10, 10, 10)
-                        .addComponent(Tips, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,35 +213,11 @@ public class Window extends javax.swing.JFrame implements KeyListener{
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Art;
     private javax.swing.JPanel Reproduction;
-    private javax.swing.JPanel Tips;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private java.awt.Label labelListaReproducao;
     // End of variables declaration//GEN-END:variables
-
-    GerenciadorDeExecucao GDE;
-
-    @Override
-    public void keyTyped(KeyEvent ke) {
-        
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
-            System.out.println(" version: {}" + LibVlc.INSTANCE.libvlc_get_version()); System.out.println(" compiler: {}" + LibVlc.INSTANCE.libvlc_get_compiler()); System.out.println("changeset: {}" + LibVlc.INSTANCE.libvlc_get_changeset());
-        }
-            //GDE.abrirArquivo();
-        if(ke.getKeyCode() == KeyEvent.VK_Z)
-            try {
-                GDE.pausar();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(ke.getKeyCode() == KeyEvent.VK_X)
-            GDE.continuar();
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
-        
-    }
 }
