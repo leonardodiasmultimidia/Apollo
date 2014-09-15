@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class Disco {
     
     private int id;
+    private String nome;
+    private int duracao;
     private ArrayList<Faixa> disco;
     
     public Disco(int id, ArrayList<Faixa> disco){
@@ -34,6 +36,23 @@ public class Disco {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
+    }
+    
 
     public ArrayList<Faixa> getDisco() {
         return disco;
