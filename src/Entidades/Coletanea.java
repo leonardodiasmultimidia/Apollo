@@ -17,10 +17,12 @@ public class Coletanea {
     private int id;
     private String nome;
     private ArrayList<Disco> coletanea;
+    private float valor;
 
-    public Coletanea(int id, ArrayList<Disco> coletanea) {
+    public Coletanea(int id, ArrayList<Disco> coletanea, float valor) {
         this.id = id;
         this.coletanea = coletanea;
+        this.valor = valor;
     }
 
     public Coletanea() {
@@ -69,5 +71,11 @@ public class Coletanea {
         coletanea.remove(pos);
     }
     
-    
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
 }

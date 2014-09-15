@@ -16,13 +16,15 @@ public class Faixa {
     private int duracao; //em segundos
     private String nome;
     private String autor;
+    private float valor;
 
-    public Faixa(int id, String url, int duracao, String nome, String autor) {
+    public Faixa(int id, String url, int duracao, String nome, String autor, float valor) {
         this.id = id;
         this.url = url;
         this.duracao = duracao;
         this.nome = nome;
         this.autor = autor;
+        this.valor = valor;
     }
     
     public Faixa(){
@@ -30,7 +32,8 @@ public class Faixa {
         url = "";
         duracao = -1;
         nome = "";
-        autor = "";            
+        autor = "";        
+        valor = -1;
     }
 
     public int getId() {
@@ -72,4 +75,14 @@ public class Faixa {
     public void setAutor(String autor) {
         this.autor = autor;
     }
+
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+    
+    
 }

@@ -18,10 +18,12 @@ public class Disco {
     private String nome;
     private int duracao;
     private ArrayList<Faixa> disco;
+    private float valor;
     
-    public Disco(int id, ArrayList<Faixa> disco){
+    public Disco(int id, ArrayList<Faixa> disco, float valor){
         this.id = id;
         this.disco = disco;
+        this.valor = valor;
     }
     
     public Disco(){
@@ -76,5 +78,13 @@ public class Disco {
     
     public void removeFaixaByPos(int pos){
         disco.remove(pos);
+    }
+    
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
     }
 }
