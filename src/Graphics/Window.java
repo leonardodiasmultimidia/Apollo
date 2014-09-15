@@ -6,13 +6,20 @@
 
 package Graphics;
 
+import Tocador.GerenciadorDeExecucao;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import uk.co.caprica.vlcj.binding.LibVlc;
 
 /**
  *
  * @author Leonardo Dias
  */
-public class Window extends javax.swing.JFrame {
+public class Window extends javax.swing.JFrame implements KeyListener{
 
     /**
      * Creates new form Window
@@ -20,6 +27,14 @@ public class Window extends javax.swing.JFrame {
     public Window() {
         setMinimumSize(new Dimension(530,320));
         initComponents();
+        addKeyListener(this);
+        try {
+            GDE = new GerenciadorDeExecucao();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JavaLayerException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -38,7 +53,7 @@ public class Window extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Art.setBackground(new java.awt.Color(0, 240, 240));
+        Art.setBackground(new java.awt.Color(0, 0, 0));
         Art.setMinimumSize(new java.awt.Dimension(200, 200));
 
         javax.swing.GroupLayout ArtLayout = new javax.swing.GroupLayout(Art);
@@ -52,35 +67,35 @@ public class Window extends javax.swing.JFrame {
             .addGap(0, 200, Short.MAX_VALUE)
         );
 
-        Reproduction.setBackground(new java.awt.Color(240, 240, 0));
+        Reproduction.setBackground(new java.awt.Color(0, 0, 0));
         Reproduction.setMinimumSize(new java.awt.Dimension(300, 150));
 
         javax.swing.GroupLayout ReproductionLayout = new javax.swing.GroupLayout(Reproduction);
         Reproduction.setLayout(ReproductionLayout);
         ReproductionLayout.setHorizontalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
         ReproductionLayout.setVerticalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 191, Short.MAX_VALUE)
         );
 
-        Tips.setBackground(new java.awt.Color(240, 0, 0));
+        Tips.setBackground(new java.awt.Color(0, 0, 0));
         Tips.setMinimumSize(new java.awt.Dimension(300, 60));
 
         javax.swing.GroupLayout TipsLayout = new javax.swing.GroupLayout(Tips);
         Tips.setLayout(TipsLayout);
         TipsLayout.setHorizontalGroup(
             TipsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 509, Short.MAX_VALUE)
         );
         TipsLayout.setVerticalGroup(
             TipsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 69, Short.MAX_VALUE)
         );
 
-        jPanel1.setBackground(new java.awt.Color(240, 0, 240));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMinimumSize(new java.awt.Dimension(200, 60));
         jPanel1.setName(""); // NOI18N
 
@@ -170,4 +185,32 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JPanel Tips;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    GerenciadorDeExecucao GDE;
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_SPACE){
+            System.out.println(" version: {}" + LibVlc.INSTANCE.libvlc_get_version()); System.out.println(" compiler: {}" + LibVlc.INSTANCE.libvlc_get_compiler()); System.out.println("changeset: {}" + LibVlc.INSTANCE.libvlc_get_changeset());
+        }
+            //GDE.abrirArquivo();
+        if(ke.getKeyCode() == KeyEvent.VK_Z)
+            try {
+                GDE.pausar();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_X)
+            GDE.continuar();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+        
+    }
 }
