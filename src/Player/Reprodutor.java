@@ -47,7 +47,7 @@ public class Reprodutor {
     }
     
     public void pause(){
-        frameAtual = player.pause();
+        player.pause();
     }
     
 }
