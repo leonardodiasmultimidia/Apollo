@@ -27,24 +27,36 @@ public class Window extends javax.swing.JFrame{
      */
     public Window() {
         setMinimumSize(new Dimension(759,291));
-        initComponents();
+        //initComponents();
         FaixasDAO daofaixas = new FaixasDAO();
         ListaDeReproducao.iniciaLista();
         try {
             ListaDeReproducao.insereOutraLista(daofaixas.getListFaixaByAutor(""));
-                        Configuracoes.changeShuffle();
-            ListaDeReproducao.tocar();
-            ListaDeReproducao.proxMusica();
-            ListaDeReproducao.tocar();
-            ListaDeReproducao.antMusica();
-            ListaDeReproducao.tocar();
-            ListaDeReproducao.proxMusica();
-            ListaDeReproducao.tocar();
-            ListaDeReproducao.proxMusica();
-            ListaDeReproducao.tocar();
         } catch (SQLException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
+            Configuracoes.changeShuffle();
+            ListaDeReproducao.tocar();
+        try {
+            //ListaDeReproducao.proxMusica();
+            //ListaDeReproducao.tocar();
+            //ListaDeReproducao.antMusica();
+            //ListaDeReproducao.tocar();
+            //ListaDeReproducao.proxMusica();
+            //ListaDeReproducao.tocar();
+            //ListaDeReproducao.proxMusica();
+            //ListaDeReproducao.tocar();
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           ListaDeReproducao.pausar();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           ListaDeReproducao.continuar();
     }
 
     /**
