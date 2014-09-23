@@ -36,6 +36,8 @@ Icon
 
 # Not code files
 .gitignore
+*.jar
 /build/**/*.*
 /nbproject/**/*.*
+*.txt
 *.mp3
