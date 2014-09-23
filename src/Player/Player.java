@@ -36,7 +36,7 @@ public class Player extends javazoom.jl.player.advanced.AdvancedPlayer implement
         }
     }
     
-    public int pause(){
+    public void pause(){
         
         close();
     }
