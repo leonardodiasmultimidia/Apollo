@@ -27,7 +27,8 @@ public class Window extends javax.swing.JFrame{
      */
     public Window() {
         setMinimumSize(new Dimension(759,291));
-        //initComponents();
+        initComponents();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         FaixasDAO daofaixas = new FaixasDAO();
         ListaDeReproducao.iniciaLista();
         try {
@@ -35,28 +36,6 @@ public class Window extends javax.swing.JFrame{
         } catch (SQLException ex) {
             Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
         }
-            Configuracoes.changeShuffle();
-            ListaDeReproducao.tocar();
-        try {
-            //ListaDeReproducao.proxMusica();
-            //ListaDeReproducao.tocar();
-            //ListaDeReproducao.antMusica();
-            //ListaDeReproducao.tocar();
-            //ListaDeReproducao.proxMusica();
-            //ListaDeReproducao.tocar();
-            //ListaDeReproducao.proxMusica();
-            //ListaDeReproducao.tocar();
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           ListaDeReproducao.pausar();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-        }
-           ListaDeReproducao.continuar();
     }
 
     /**
@@ -72,6 +51,12 @@ public class Window extends javax.swing.JFrame{
         Reproduction = new javax.swing.JPanel();
         labelListaReproducao = new java.awt.Label();
         jPanel1 = new javax.swing.JPanel();
+        prev = new java.awt.Button();
+        play = new java.awt.Button();
+        parar = new java.awt.Button();
+        next = new java.awt.Button();
+        random = new java.awt.Button();
+        repeat = new java.awt.Button();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -123,21 +108,86 @@ public class Window extends javax.swing.JFrame{
         jPanel1.setMinimumSize(new java.awt.Dimension(200, 60));
         jPanel1.setName(""); // NOI18N
 
+        prev.setLabel("<");
+        prev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevActionPerformed(evt);
+            }
+        });
+
+        play.setActionCommand("play");
+        play.setLabel("play");
+        play.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                playActionPerformed(evt);
+            }
+        });
+
+        parar.setLabel("parar");
+        parar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pararActionPerformed(evt);
+            }
+        });
+
+        next.setLabel(">");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
+
+        random.setLabel("random");
+        random.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                randomActionPerformed(evt);
+            }
+        });
+
+        repeat.setLabel("repeat");
+        repeat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                repeatActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(parar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(random, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(repeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(repeat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(random, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(parar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(play, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        play.getAccessibleContext().setAccessibleName("play");
+
         jMenu1.setText("Arquivo");
-        jMenu1.setActionCommand("Arquivo");
         jMenuBar1.add(jMenu1);
-        jMenu1.getAccessibleContext().setAccessibleName("Arquivo");
 
         jMenu2.setText("Faixas");
 
@@ -187,6 +237,36 @@ public class Window extends javax.swing.JFrame{
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
+        // TODO add your handling code here:
+        ListaDeReproducao.tocar();
+    }//GEN-LAST:event_playActionPerformed
+
+    private void pararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararActionPerformed
+        // TODO add your handling code here:
+        ListaDeReproducao.parar();
+    }//GEN-LAST:event_pararActionPerformed
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        // TODO add your handling code here:
+        ListaDeReproducao.proxMusica();
+    }//GEN-LAST:event_nextActionPerformed
+
+    private void repeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeatActionPerformed
+        // TODO add your handling code here:
+        Configuracoes.changeRepeatState();
+    }//GEN-LAST:event_repeatActionPerformed
+
+    private void prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevActionPerformed
+        // TODO add your handling code here:
+        ListaDeReproducao.antMusica();
+    }//GEN-LAST:event_prevActionPerformed
+
+    private void randomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomActionPerformed
+        // TODO add your handling code here:
+        Configuracoes.changeShuffle();
+    }//GEN-LAST:event_randomActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -231,5 +311,11 @@ public class Window extends javax.swing.JFrame{
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private java.awt.Label labelListaReproducao;
+    private java.awt.Button next;
+    private java.awt.Button parar;
+    private java.awt.Button play;
+    private java.awt.Button prev;
+    private java.awt.Button random;
+    private java.awt.Button repeat;
     // End of variables declaration//GEN-END:variables
 }
