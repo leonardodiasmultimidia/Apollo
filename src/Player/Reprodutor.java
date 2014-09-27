@@ -6,11 +6,8 @@
 
 package Player;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javazoom.jl.decoder.JavaLayerException;
 
 /**
  *
@@ -18,36 +15,64 @@ import javazoom.jl.decoder.JavaLayerException;
  */
 public class Reprodutor {
     
+    public static final int PLAYING = 1;
+    public static final int STOPPED = -1;
+    public static final int PAUSED = 0;
+    public static int status;
+    
     String path;
     Player player;
     Thread threadPlayer;
-    int frameAtual;
     
     public Reprodutor(){
         path = null;
         player = null;
         threadPlayer = null;
-        frameAtual = -1;
+        status = -1;
     }
     
     public void setMusica(String path){
-            this.path = path;
+        stop();
+        status = -1;
+        this.path = path;
     }
     
     public void play(){
-        try {
-            player = new Player(new FileInputStream(path), frameAtual);
-        } catch (JavaLayerException ex) {
-            Logger.getLogger(Reprodutor.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Reprodutor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        status = PLAYING;
+        player = new Player(path);
         threadPlayer = new Thread(player);
         threadPlayer.start();
     }
     
+    public void resume(){
+        status = PLAYING;
+        if(player!=null){
+            synchronized(player){
+                player.notify();
+            }
+        }
+        
+    }
+    
     public void pause(){
-        player.pause();
+        status = PAUSED;
+    }  
+    
+    public void stop(){
+        status = STOPPED;
+        if(threadPlayer!=null){
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Reprodutor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            threadPlayer.interrupt();
+            threadPlayer = null;
+        }
+    }
+    
+    public static int getStatus(){
+        return status;
     }
     
 }
