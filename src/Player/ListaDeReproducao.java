@@ -7,9 +7,12 @@
 package Player;
 
 import Entidades.Faixa;
+import Graphics.Window;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Random;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,17 +24,18 @@ public class ListaDeReproducao {
     private static int faixaAtual;
     private static Random random;
     private static Reprodutor reprodutor;
-    private static Thread threadReprodutor;
-    private static boolean playing;
+    private static DefaultTableModel model;
             
     public static void iniciaLista(){
         lista = new ArrayList<>();
         random = new Random(Calendar.getInstance().get(Calendar.MILLISECOND));
         faixaAtual = -1;
-        playing = false;
+        model = (DefaultTableModel) Window.tableListaReproducao.getModel();
+        reprodutor = new Reprodutor();
     }
     
     public static void insereFaixa(Faixa f){
+        model.addRow(new Object[]{f.getNome()+"-"+f.getAutor(),f.getDuracao()/60+":"+(new DecimalFormat("00")).format(f.getDuracao()%60)});
         lista.add(f);
     }
     
@@ -40,17 +44,16 @@ public class ListaDeReproducao {
     }
     
     public static void limpaLista(){
-        while(lista.size()!=0)
-            lista.remove(0);
+        lista.clear();
     }
     
     public static void insereOutraLista(ArrayList<Faixa> listaExterna){
         for(int cont = 0; cont < listaExterna.size(); cont++)
-            lista.add(listaExterna.get(cont));
+            insereFaixa(listaExterna.get(cont));
     }
     
     public static void proxMusica(){
-        if(lista.size()==0)
+        if(lista.isEmpty())
             return;
         if(Configuracoes.getShuffle()){
             faixaAtual = random.nextInt(lista.size());
@@ -61,7 +64,7 @@ public class ListaDeReproducao {
     }
     
     public static void antMusica(){
-        if(lista.size()==0)
+        if(lista.isEmpty())
             return;
         if(Configuracoes.getShuffle()){
             int next;
@@ -76,26 +79,37 @@ public class ListaDeReproducao {
     }
     
     public static void tocar(){
-        if(lista.size()!=0){
+        if(!lista.isEmpty()){
             if(faixaAtual==-1){
                 proxMusica();
                 return;
             }            
         }
+        
         else return;
-        if(playing)
-            parar();
-        reprodutor = new Reprodutor();
-        reprodutor.setMusica(lista.get(faixaAtual).getUrl()+".mp3");
+        reprodutor.setMusica(lista.get(faixaAtual).getUrl()+".ogg");
         reprodutor.play();
         System.out.println("Tocando agora: "+lista.get(faixaAtual).getNome() + " - "+ lista.get(faixaAtual).getAutor()+" from: "+lista.get(faixaAtual).getUrl());
-        playing = true;
+    }
+    
+    public static void continuar(){
+        System.out.println("continuando");
+        reprodutor.resume();
+    }
+    
+    public static void pause(){
+        System.out.println("pausando...");
+        reprodutor.pause();
+    }
+    
+    public static void tocarAt(int pos){ //NAO IMPLEMENTADO
+        faixaAtual = pos;
+        tocar();
     }
     
     public static void parar(){
-            System.out.println("parando...");
-            reprodutor.pause();
-            playing = false;
+        System.out.println("parando...");
+        reprodutor.stop();
     }
     
 }

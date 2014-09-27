@@ -12,12 +12,15 @@ package Player;
  */
 public class Configuracoes {
     
+    public static final int NONE = 0;
+    public static final int REPETIR_TUDO = 1;
+    public static final int REPETIR_UMA = 2;
     private static boolean shuffle = false;
     private static int repeatState = 0;
     
     public static void changeRepeatState(){
         repeatState++;
-        if(repeatState>=4) repeatState = 0;
+        if(repeatState>=3) repeatState = 0;
     }
     
     public static void changeShuffle(){
