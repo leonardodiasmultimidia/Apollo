@@ -7,12 +7,12 @@
 package Graphics;
 
 import DAO.FaixasDAO;
-import Entidades.Faixa;
+import Listenners.tableListenner;
 import Player.Configuracoes;
 import Player.ListaDeReproducao;
+import Player.Reprodutor;
 import java.awt.Dimension;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,6 +28,10 @@ public class Window extends javax.swing.JFrame{
     public Window() {
         setMinimumSize(new Dimension(759,291));
         initComponents();
+        tableListaReproducao.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tableListaReproducao.getColumnModel().getColumn(0).setResizable(false);
+        tableListaReproducao.getTableHeader().setReorderingAllowed (false); 
+        tableListaReproducao.addMouseListener(new tableListenner());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         FaixasDAO daofaixas = new FaixasDAO();
         ListaDeReproducao.iniciaLista();
@@ -50,6 +54,8 @@ public class Window extends javax.swing.JFrame{
         Art = new javax.swing.JPanel();
         Reproduction = new javax.swing.JPanel();
         labelListaReproducao = new java.awt.Label();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableListaReproducao = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         prev = new java.awt.Button();
         play = new java.awt.Button();
@@ -63,6 +69,7 @@ public class Window extends javax.swing.JFrame{
         jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(250, 250, 250));
 
         Art.setBackground(new java.awt.Color(0, 0, 0));
         Art.setMinimumSize(new java.awt.Dimension(200, 200));
@@ -71,35 +78,65 @@ public class Window extends javax.swing.JFrame{
         Art.setLayout(ArtLayout);
         ArtLayout.setHorizontalGroup(
             ArtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         ArtLayout.setVerticalGroup(
             ArtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 255, Short.MAX_VALUE)
         );
 
-        Reproduction.setBackground(new java.awt.Color(200, 200, 200));
+        Reproduction.setBackground(new java.awt.Color(250, 250, 250));
         Reproduction.setMaximumSize(new java.awt.Dimension(200, 32767));
         Reproduction.setMinimumSize(new java.awt.Dimension(200, 150));
         Reproduction.setPreferredSize(new java.awt.Dimension(200, 315));
 
-        labelListaReproducao.setText("label1");
+        labelListaReproducao.setText("Lista de Reproducao");
+
+        tableListaReproducao.setAutoCreateRowSorter(true);
+        tableListaReproducao.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nome", "Duração"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tableListaReproducao.setToolTipText("");
+        tableListaReproducao.setOpaque(false);
+        tableListaReproducao.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableListaReproducao.setShowHorizontalLines(false);
+        tableListaReproducao.setShowVerticalLines(false);
+        jScrollPane1.setViewportView(tableListaReproducao);
 
         javax.swing.GroupLayout ReproductionLayout = new javax.swing.GroupLayout(Reproduction);
         Reproduction.setLayout(ReproductionLayout);
         ReproductionLayout.setHorizontalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReproductionLayout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(ReproductionLayout.createSequentialGroup()
+                .addGap(99, 99, 99)
                 .addComponent(labelListaReproducao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
         ReproductionLayout.setVerticalGroup(
             ReproductionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReproductionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelListaReproducao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         labelListaReproducao.getAccessibleContext().setAccessibleName("Lista de reprodução");
@@ -184,8 +221,6 @@ public class Window extends javax.swing.JFrame{
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        play.getAccessibleContext().setAccessibleName("play");
-
         jMenu1.setText("Arquivo");
         jMenuBar1.add(jMenu1);
 
@@ -211,10 +246,10 @@ public class Window extends javax.swing.JFrame{
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Art, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
-                .addComponent(Reproduction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Art, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Reproduction, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -239,7 +274,12 @@ public class Window extends javax.swing.JFrame{
 
     private void playActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playActionPerformed
         // TODO add your handling code here:
-        ListaDeReproducao.tocar();
+            if(Reprodutor.getStatus()==Reprodutor.STOPPED)
+                ListaDeReproducao.tocar();
+            else if(Reprodutor.getStatus()==Reprodutor.PLAYING)
+                ListaDeReproducao.pause();
+            else if(Reprodutor.getStatus()==Reprodutor.PAUSED)
+                ListaDeReproducao.continuar();
     }//GEN-LAST:event_playActionPerformed
 
     private void pararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pararActionPerformed
@@ -278,7 +318,8 @@ public class Window extends javax.swing.JFrame{
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                System.out.println(info.getName());
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -310,6 +351,7 @@ public class Window extends javax.swing.JFrame{
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label labelListaReproducao;
     private java.awt.Button next;
     private java.awt.Button parar;
@@ -317,5 +359,6 @@ public class Window extends javax.swing.JFrame{
     private java.awt.Button prev;
     private java.awt.Button random;
     private java.awt.Button repeat;
+    public static javax.swing.JTable tableListaReproducao;
     // End of variables declaration//GEN-END:variables
 }
