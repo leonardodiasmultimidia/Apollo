@@ -4,31 +4,31 @@
  * and open the template in the editor.
  */
 
-package Entidades;
+package apollo.Entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Leonardo Dias
  */
-public class Disco {
+public class Coletanea implements Serializable{
     
     private int id;
     private String nome;
-    private int duracao;
-    private ArrayList<Faixa> disco;
+    private ArrayList<Disco> coletanea;
     private float valor;
-    
-    public Disco(int id, ArrayList<Faixa> disco, float valor){
+
+    public Coletanea(int id, ArrayList<Disco> coletanea, float valor) {
         this.id = id;
-        this.disco = disco;
+        this.coletanea = coletanea;
         this.valor = valor;
     }
-    
-    public Disco(){
+
+    public Coletanea() {
         id = -1;
-        disco = null;
+        coletanea = null;
     }
 
     public int getId() {
@@ -46,38 +46,30 @@ public class Disco {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public int getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(int duracao) {
-        this.duracao = duracao;
-    }
     
 
-    public ArrayList<Faixa> getDisco() {
-        return disco;
+    public ArrayList<Disco> getColetanea() {
+        return coletanea;
     }
 
-    public void setDisco(ArrayList<Faixa> disco) {
-        this.disco = disco;
+    public void setColetanea(ArrayList<Disco> coletanea) {
+        this.coletanea = coletanea;
     }
     
-    public int getNumeroDeFaixas(){
-        return disco.size();
+    public int getNumDiscos(){
+        return coletanea.size();
     }
     
-    public void addFaixa(Faixa faixa){
-        disco.add(faixa);
+    public void addDisco(Disco disco){
+        coletanea.add(disco);
     }
     
-    public void removeFaixa(Faixa faixa){
-        disco.remove(faixa);
+    public void removeDisco(Disco disco){
+        coletanea.remove(disco);
     }
     
-    public void removeFaixaByPos(int pos){
-        disco.remove(pos);
+    public void removeDiscoByPos(int pos){
+        coletanea.remove(pos);
     }
     
     public float getValor() {

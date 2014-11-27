@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 
-package Player;
+package apollo.Player;
 
-import Entidades.Faixa;
-import Graphics.Window;
+import apollo.Entidades.Faixa;
+import apollo.Graphics.IUPrincipal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,7 +30,7 @@ public class ListaDeReproducao {
         lista = new ArrayList<>();
         random = new Random(Calendar.getInstance().get(Calendar.MILLISECOND));
         faixaAtual = -1;
-        model = (DefaultTableModel) Window.tableListaReproducao.getModel();
+        model = (DefaultTableModel) IUPrincipal.jTableListaReproducao.getModel();
         reprodutor = new Reprodutor();
     }
     
@@ -85,11 +85,13 @@ public class ListaDeReproducao {
                 return;
             }            
         }
-        
         else return;
-        reprodutor.setMusica(lista.get(faixaAtual).getUrl()+".ogg");
+        reprodutor.setMusica(lista.get(faixaAtual).getId(), lista.get(faixaAtual).getUrl()+".ogg", lista.get(faixaAtual).getDuracao());
         reprodutor.play();
-        System.out.println("Tocando agora: "+lista.get(faixaAtual).getNome() + " - "+ lista.get(faixaAtual).getAutor()+" from: "+lista.get(faixaAtual).getUrl());
+        IUPrincipal.setLabelTrackName(lista.get(faixaAtual).getNome());
+        IUPrincipal.setLabelTrackAutor(lista.get(faixaAtual).getAutor());
+        IUPrincipal.setLabelTrackTime("00:00/"+(int)lista.get(faixaAtual).getDuracao()/60+":"+lista.get(faixaAtual).getDuracao()%60);
+        IUPrincipal.setJProgressBarLenght(lista.get(faixaAtual).getDuracao());
     }
     
     public static void continuar(){
@@ -108,8 +110,11 @@ public class ListaDeReproducao {
     }
     
     public static void parar(){
-        System.out.println("parando...");
         reprodutor.stop();
+        IUPrincipal.setLabelTrackName("- -");
+        IUPrincipal.setLabelTrackAutor("- -");
+        IUPrincipal.setLabelTrackTime("00:00/-- --");
+        IUPrincipal.setJProgressBarZero();
     }
     
 }

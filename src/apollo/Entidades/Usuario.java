@@ -4,13 +4,15 @@
  * and open the template in the editor.
  */
 
-package Entidades;
+package apollo.Entidades;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Leonardo Dias
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
     private int id;
     private String nome;

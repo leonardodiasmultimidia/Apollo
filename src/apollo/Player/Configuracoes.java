@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Player;
+package apollo.Player;
 
 /**
  *
@@ -25,6 +25,10 @@ public class Configuracoes {
     
     public static void changeShuffle(){
         shuffle = !shuffle;
+    }
+    
+    public static void changeShuffle(boolean novoShuffle){
+        shuffle = novoShuffle;
     }
     
     public static boolean getShuffle(){

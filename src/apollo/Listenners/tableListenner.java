@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-package Listenners;
+package apollo.Listenners;
 
-import Graphics.Window;
-import Player.ListaDeReproducao;
+import apollo.Graphics.IUPrincipal;
+import apollo.Graphics.Window;
+import apollo.Player.ListaDeReproducao;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,10 +22,10 @@ public class tableListenner implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent me) {
-        if(lastClick==Window.tableListaReproducao.getSelectedRow())
-            ListaDeReproducao.tocarAt(Window.tableListaReproducao.getSelectedRow());
+        if(lastClick==IUPrincipal.jTableListaReproducao.getSelectedRow())
+            ListaDeReproducao.tocarAt(lastClick);
         else
-        lastClick = Window.tableListaReproducao.getSelectedRow();
+        lastClick = IUPrincipal.jTableListaReproducao.getSelectedRow();
     }
 
     @Override

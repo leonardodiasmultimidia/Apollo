@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package Player;
+package apollo.Player;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +34,7 @@ public class Player implements Runnable{
       {
         // Get AudioInputStream from given file.	
         AudioInputStream in= AudioSystem.getAudioInputStream(file);
+        //AudioInputStream in= AudioSystem.getAudioInputStream(new URL("https://docs.google.com/uc?authuser=0&id=0B6fZgwGy6zsNbENVLVRrcy1FM1k&export=download"));
         AudioInputStream din;
         if (in != null)
         {
@@ -71,7 +72,7 @@ public class Player implements Runnable{
          int nBytesRead = 0, nBytesWritten = 0;
          while (nBytesRead != -1)
         {
-            if(Reprodutor.getStatus()==Reprodutor.PAUSED){
+            if(Reprodutor.getStatus()== Reprodutor.PAUSED){
                 try {
                     synchronized(this){
                         wait();
@@ -80,10 +81,12 @@ public class Player implements Runnable{
                     Logger.getLogger(Player.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            else if(Reprodutor.getStatus()==Reprodutor.STOPPED)
+            else if(Reprodutor.getStatus()== Reprodutor.STOPPED)
                 break;
             nBytesRead = din.read(data, 0, data.length);
-            if (nBytesRead != -1) nBytesWritten = line.write(data, 0, nBytesRead);
+            if (nBytesRead != -1){ 
+                nBytesWritten = line.write(data, 0, nBytesRead);
+            }
         }
         line.drain();
         line.stop();
