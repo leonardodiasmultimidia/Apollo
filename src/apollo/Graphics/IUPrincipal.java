@@ -79,10 +79,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         jMenuBar = new javax.swing.JMenuBar();
         jMenuReproductionList = new javax.swing.JMenu();
         jMenuInsertTrack = new javax.swing.JMenuItem();
-        jMenuInsertDisc = new javax.swing.JMenuItem();
-        jMenuInsertLore = new javax.swing.JMenuItem();
-        jMenuOpenSavedList = new javax.swing.JMenuItem();
-        jMenuSaveList = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -266,38 +262,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         });
         jMenuReproductionList.add(jMenuInsertTrack);
 
-        jMenuInsertDisc.setText("Inserir Disco");
-        jMenuInsertDisc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuInsertDiscActionPerformed(evt);
-            }
-        });
-        jMenuReproductionList.add(jMenuInsertDisc);
-
-        jMenuInsertLore.setText("Inserir Coletânea");
-        jMenuInsertLore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuInsertLoreActionPerformed(evt);
-            }
-        });
-        jMenuReproductionList.add(jMenuInsertLore);
-
-        jMenuOpenSavedList.setText("Abrir Lista Salva");
-        jMenuOpenSavedList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuOpenSavedListActionPerformed(evt);
-            }
-        });
-        jMenuReproductionList.add(jMenuOpenSavedList);
-
-        jMenuSaveList.setText("Salvar Lista Atual");
-        jMenuSaveList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuSaveListActionPerformed(evt);
-            }
-        });
-        jMenuReproductionList.add(jMenuSaveList);
-
         jMenuBar.add(jMenuReproductionList);
 
         setJMenuBar(jMenuBar);
@@ -340,24 +304,8 @@ public class IUPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btPrevActionPerformed
 
     private void jMenuInsertTrackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInsertTrackActionPerformed
-        // TODO add your handling code here:
+        new IUInsereFaixa();
     }//GEN-LAST:event_jMenuInsertTrackActionPerformed
-
-    private void jMenuInsertDiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInsertDiscActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuInsertDiscActionPerformed
-
-    private void jMenuInsertLoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuInsertLoreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuInsertLoreActionPerformed
-
-    private void jMenuOpenSavedListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuOpenSavedListActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuOpenSavedListActionPerformed
-
-    private void jMenuSaveListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSaveListActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuSaveListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -402,12 +350,8 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuInsertDisc;
-    private javax.swing.JMenuItem jMenuInsertLore;
     private javax.swing.JMenuItem jMenuInsertTrack;
-    private javax.swing.JMenuItem jMenuOpenSavedList;
     private javax.swing.JMenu jMenuReproductionList;
-    private javax.swing.JMenuItem jMenuSaveList;
     private javax.swing.JPanel jPanelBot;
     private javax.swing.JPanel jPanelFundo;
     private javax.swing.JPanel jPanelTop;
