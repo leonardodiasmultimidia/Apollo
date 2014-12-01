@@ -58,6 +58,11 @@ public class IULogin extends javax.swing.JFrame {
         jLabelEmail.setText("E-mail:");
 
         jTextFieldEmail.setToolTipText("");
+        jTextFieldEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldEmailActionPerformed(evt);
+            }
+        });
 
         jLabelSenha.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabelSenha.setText("Senha:");
@@ -170,6 +175,10 @@ public class IULogin extends javax.swing.JFrame {
     private void jPasswordFieldSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldSenhaActionPerformed
         jButtonLoginActionPerformed(evt);
     }//GEN-LAST:event_jPasswordFieldSenhaActionPerformed
+
+    private void jTextFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEmailActionPerformed
+        jButtonCadastrarActionPerformed(evt);
+    }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     /**
      * @param args the command line arguments
