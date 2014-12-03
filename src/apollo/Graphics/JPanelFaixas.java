@@ -6,10 +6,14 @@
 
 package apollo.Graphics;
 
+import apollo.Entidades.Coletanea;
+import apollo.Entidades.Disco;
 import apollo.Entidades.Faixa;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -30,6 +34,14 @@ public class JPanelFaixas extends JPanel{
         jCBGroup = new ArrayList<JCBox>();
     }
     
+    public void addTexto(String s){
+        reset();
+        JLabel busca = (new JLabel(s));
+        busca.setFont(new Font("Verdana",0,16));
+        busca.setBounds(posX, posY, 800, 40);
+        add(busca);
+        posY+=40;
+    }
     
     public void addFaixas(ArrayList<Faixa> faixas){
         JCBox jCBox;
@@ -42,6 +54,14 @@ public class JPanelFaixas extends JPanel{
             add(jCBox);
             posY+=20;
         }
+    }
+    
+    public void addDiscos(ArrayList<Disco> discos){
+        
+    }
+    
+    public void addColetaneas(ArrayList<Coletanea> coletaneas){
+        
     }
     
     /*public void addDisco(ArrayList<Disco> discos){
@@ -66,6 +86,13 @@ public class JPanelFaixas extends JPanel{
             }
         }
         return temp;
+    }
+    
+    private void reset(){
+        posY = 0;
+        posX = 20;
+        jCBGroup.clear();
+        this.removeAll();
     }
     
     private class JCBox extends JCheckBox{
