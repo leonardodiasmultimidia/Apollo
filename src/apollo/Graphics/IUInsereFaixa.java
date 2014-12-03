@@ -73,6 +73,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
         label1.setText("Categoria");
 
         jRadioButtonFaixas.setBackground(new java.awt.Color(250, 250, 250));
+        jRadioButtonFaixas.setSelected(true);
         jRadioButtonFaixas.setText("Faixas");
         jRadioButtonFaixas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +103,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
         });
 
         jRadioButtonNome.setBackground(new java.awt.Color(250, 250, 250));
+        jRadioButtonNome.setSelected(true);
         jRadioButtonNome.setText("Nome");
         jRadioButtonNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -211,9 +213,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
             .addGroup(jPanelFundoLayout.createSequentialGroup()
                 .addComponent(jPanelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanelFundoLayout.createSequentialGroup()
-                .addComponent(scrollPaneFaixas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(scrollPaneFaixas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,25 +245,26 @@ public class IUInsereFaixa extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldBuscarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        jPanelFaixas.addTexto("Resultado de busca para \""+jTextFieldBuscar.getText()+"\"");
         if (jRadioButtonNome.isSelected()) {
             if (jRadioButtonFaixas.isSelected()){
-                jPanelFaixas.addFaixas(BD.getAllFaixaByNome(jTextFieldBuscar.getText()));
+                jPanelFaixas.addFaixas(BD.getAllFaixaByNome(jTextFieldBuscar.getText().toUpperCase()));
             }
             else if (jRadioButtonDiscos.isSelected()){
-                
+                jPanelFaixas.addDiscos(BD.getAllDiscoByNome(jTextFieldBuscar.getText().toUpperCase()));
             }
             else{
-                
+                jPanelFaixas.addColetaneas(BD.getAllColetaneaByNome(jTextFieldBuscar.getText().toUpperCase()));
             }
-        } else {
+        } else if(jRadioButtonAutor.isSelected()){
             if (jRadioButtonFaixas.isSelected()){ 
-                jPanelFaixas.addFaixas(BD.getAllFaixaByAutor(jTextFieldBuscar.getText()));
+                jPanelFaixas.addFaixas(BD.getAllFaixaByAutor(jTextFieldBuscar.getText().toUpperCase()));
             }
             else if (jRadioButtonDiscos.isSelected()){
-                
+                jPanelFaixas.addDiscos(BD.getAllDiscoByAutor(jTextFieldBuscar.getText().toUpperCase()));
             }
             else{
-                
+                jPanelFaixas.addColetaneas(BD.getAllColetaneaByAutor(jTextFieldBuscar.getText().toUpperCase()));
             }
         }
         jPanelFaixas.validate();
