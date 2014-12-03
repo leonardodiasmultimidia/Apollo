@@ -95,7 +95,7 @@ public class BD{
     public static ArrayList<Faixa> getAllFaixaByNome(String nomeFaixa){
         ArrayList<Faixa> faixasRetorno = new ArrayList<>();
         for(Faixa faixa: faixas)
-            if(faixa.getNome().contains(nomeFaixa))
+            if(faixa.getNome().toUpperCase().contains(nomeFaixa))
                 faixasRetorno.add(faixa);
         return faixasRetorno;
     }
@@ -103,7 +103,7 @@ public class BD{
     public static ArrayList<Faixa> getAllFaixaByAutor(String nomeAutor){
         ArrayList<Faixa> faixasRetorno = new ArrayList<>();
         for(Faixa faixa: faixas)
-            if(faixa.getAutor().contains(nomeAutor))
+            if(faixa.getAutor().toUpperCase().contains(nomeAutor))
                 faixasRetorno.add(faixa);
         return faixasRetorno;
     }
@@ -129,8 +129,19 @@ public class BD{
     public static ArrayList<Disco> getAllDiscoByNome(String nomeDisco){
         ArrayList<Disco> discoRetorno = new ArrayList<>();
         for(Disco disco: discos)
-            if(disco.getNome().contains(nomeDisco))
+            if(disco.getNome().toUpperCase().contains(nomeDisco))
                 discoRetorno.add(disco);
+        return discoRetorno;
+    }
+    
+    public static ArrayList<Disco> getAllDiscoByAutor(String nomeAutor){
+        ArrayList<Disco> discoRetorno = new ArrayList<>();
+        for(Disco disco: discos)
+            for(Faixa faixa: getAllFaixaByDisco(disco))
+                if(faixa.getAutor().toUpperCase().contains(nomeAutor)){
+                    discoRetorno.add(disco);
+                    break;
+                }
         return discoRetorno;
     }
     
@@ -141,8 +152,19 @@ public class BD{
     public static ArrayList<Coletanea> getAllColetaneaByNome(String nomeColetanea){
         ArrayList<Coletanea> coletaneaRetorno = new ArrayList<>();
         for(Coletanea coletanea: coletaneas)
-            if(coletanea.getNome().contains(nomeColetanea))
+            if(coletanea.getNome().toUpperCase().contains(nomeColetanea))
                 coletaneaRetorno.add(coletanea);
+        return coletaneaRetorno;
+    }
+    
+    public static ArrayList<Coletanea> getAllColetaneaByAutor(String nomeAutor){
+        ArrayList<Coletanea> coletaneaRetorno = new ArrayList<>();
+        for(Coletanea coletanea: coletaneas)
+            for(Faixa faixa: getAllFaixaByColetanea(coletanea))
+                if(faixa.getAutor().toUpperCase().contains(nomeAutor)){
+                    coletaneaRetorno.add(coletanea);
+                    break;
+                }
         return coletaneaRetorno;
     }
     
@@ -168,23 +190,29 @@ public class BD{
     }
     
     public static Faixa getFaixaById(int idFaixa){
-        for(Faixa faixa: faixas)
-            if(faixa.getId() == idFaixa)
-                return faixa;
+        //for(Faixa faixa: faixas)
+        //    if(faixa.getId() == idFaixa)
+        //        return faixa;
+        if(faixas.get(idFaixa)!=null)
+            return faixas.get(idFaixa);
         return null;
     }
     
     public static Disco getDiscoById(int idDisco){
-        for(Disco disco: discos)
-            if(disco.getId() == idDisco)
-                return disco;
+        //for(Disco disco: discos)
+        //    if(disco.getId() == idDisco)
+        //        return disco;
+        if(discos.get(idDisco)!=null)
+            return discos.get(idDisco);
         return null;
     }
     
     public static Coletanea getColetaneaById(int idColetanea){
-        for(Coletanea coletanea: coletaneas)
-            if(coletanea.getId() == idColetanea)
-                return coletanea;
+        //for(Coletanea coletanea: coletaneas)
+        //    if(coletanea.getId() == idColetanea)
+        //        return coletanea;
+        if(coletaneas.get(idColetanea)!=null)
+            return coletaneas.get(idColetanea);
         return null;
     }
 }
