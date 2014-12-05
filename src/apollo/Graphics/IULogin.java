@@ -8,8 +8,9 @@ package apollo.Graphics;
 
 import apollo.BD.BD;
 import apollo.BD.Data;
+import apollo.Entidades.Disco;
+import apollo.Entidades.Faixa;
 import apollo.Entidades.Usuario;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,17 @@ public class IULogin extends javax.swing.JFrame {
     public IULogin() {
         initComponents();
         Data.recuperar();
+        //BD.adicionaFaixa(new Faixa(-1, "lib/01", 256, "Back in Black", "AC/DC", 1.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/02", 336, "Knockin' On Heaven's Door", "Guns 'n' Roses", 2.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/03", 263, "Rock 'n' Roll Train", "AC/DC", 1.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/04", 112, "T.N.T.", "AC/DC", 1.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/05", 249, "Livin'on a Prayer", "Bon Jovi", 3.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/06", 190, "Sixpence None The Richer", "Kiss Me ", 0.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/07", 161, "Have You Ever Seen The Rain", "Creedence Clearwater Revival", 1.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/08", 321, "Carry On My Wayward Son", "Kansas", 3.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/09", 76, "Breaking Bad Theme", "AMC", 3.99f));
+        //Data.salvarFaixas();
+        //Data.salvarConfiguracoes();
         setResizable(false);
         setTitle("Autenticação");
         setSize(315,215);
@@ -177,7 +189,7 @@ public class IULogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordFieldSenhaActionPerformed
 
     private void jTextFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEmailActionPerformed
-        jButtonCadastrarActionPerformed(evt);
+        jButtonLoginActionPerformed(evt);
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     /**

@@ -33,7 +33,7 @@ public class Data {
             else if(dados.equals("Coletaneas"))
                 nomeArquivo = BD.getConfiguracoes().getColetaneaDat();
             else if(dados.equals("Cobrancas"))
-                nomeArquivo = BD.getConfiguracoes().getColetaneaDat();
+                nomeArquivo = BD.getConfiguracoes().getCobrancaDat();
             else if(dados.equals("Config"))
                 nomeArquivo = BD.getConfiguracoes().getConfigDat();
             File arquivo = (new File(nomeArquivo));
@@ -99,7 +99,7 @@ public class Data {
         else if(dados.equals("Coletaneas"))
             nomeArquivo = BD.getConfiguracoes().getColetaneaDat();
         else if(dados.equals("Cobrancas"))
-            nomeArquivo = BD.getConfiguracoes().getColetaneaDat();
+            nomeArquivo = BD.getConfiguracoes().getCobrancaDat();
         else if(dados.equals("Config"))
             nomeArquivo = BD.getConfiguracoes().getConfigDat();
         if((new File(nomeArquivo)).exists()){
@@ -135,15 +135,15 @@ public class Data {
                     lista = (Object) ois.readObject();
                 }
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+                salvarDados(dados);
             } catch (IOException ex) {
-                Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+                salvarDados(dados);
             } finally{
                 try {
                     ois.close();
                     fis.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(BD.class.getName()).log(Level.SEVERE, null, ex);
+                    salvarDados(dados);
                 }
             }
         }

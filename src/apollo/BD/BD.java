@@ -117,8 +117,9 @@ public class BD{
     
     public static ArrayList<Faixa> getAllFaixaByColetanea(Coletanea coletanea){
         ArrayList<Faixa> faixasRetorno = new ArrayList<>();
-        for(Disco disco: coletanea.getColetanea())
-            faixasRetorno.addAll(getAllFaixaByDisco(disco));
+        for(String idDisco: coletanea.getColetanea())
+            for(Faixa faixa:getAllFaixaByDisco(getDiscoById(Integer.parseInt(idDisco))))
+                faixasRetorno.add(faixa);
         return faixasRetorno;
     }
     

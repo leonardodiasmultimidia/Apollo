@@ -6,6 +6,7 @@
 
 package apollo.Graphics;
 
+import apollo.BD.BD;
 import apollo.Entidades.Coletanea;
 import apollo.Entidades.Disco;
 import apollo.Entidades.Faixa;
@@ -45,44 +46,104 @@ public class JPanelFaixas extends JPanel{
     
     public void addFaixas(ArrayList<Faixa> faixas){
         JCBox jCBox;
-        for(int i = 0; i < faixas.size();i++){
-            jCBox = new JCBox();
-            jCBox.setBounds(posX, posY,800,20);
-            jCBox.setText(faixas.get(i).getNome()+" - "+faixas.get(i).getAutor());
-            jCBox.add(faixas.get(i));
-            jCBGroup.add(jCBox);
-            add(jCBox);
-            posY+=20;
+        if(faixas.size()==0){
+            JLabel info = (new JLabel("Nenhum resultado encontrado"));
+            info.setFont(new Font("Verdana",0,16));
+            info.setBounds(posX, posY, 800, 40);
+            add(info);
         }
+        else 
+            for(int i = 0; i < faixas.size();i++){
+                jCBox = new JCBox();
+                jCBox.setBounds(posX, posY,800,20);
+                jCBox.setText(faixas.get(i).getNome()+" - "+faixas.get(i).getAutor());
+                jCBox.add(faixas.get(i));
+                jCBGroup.add(jCBox);
+                add(jCBox);
+                posY+=20;
+            }
     }
     
     public void addDiscos(ArrayList<Disco> discos){
-        
+        JCBox jCBox;
+        if(discos.size()==0){
+            JLabel info = (new JLabel("Nenhum resultado encontrado"));
+            info.setFont(new Font("Verdana",0,16));
+            info.setBounds(posX, posY, 800, 40);
+            add(info);
+        }
+        else{
+            for(int i = 0; i < discos.size();i++){
+                jCBox = new JCBox();
+                jCBox.setBounds(posX, posY,800,20);
+                jCBox.setText(discos.get(i).getNome());
+                jCBox.add(discos.get(i));
+                jCBGroup.add(jCBox);
+                posY+=20;
+                JLabel labelFaixa;
+                Faixa faixa;
+                add(jCBox);
+                for(String faixaId:discos.get(i).getDisco()){
+                    faixa = BD.getFaixaById(Integer.parseInt(faixaId));
+                    labelFaixa = new JLabel(faixa.getNome()+" - "+faixa.getAutor());
+                    labelFaixa.setBounds(posX+20, posY, 780, 20);
+                    add(labelFaixa);
+                    posY+=20;
+                }
+                
+            }
+        }
     }
     
     public void addColetaneas(ArrayList<Coletanea> coletaneas){
-        
+        JCBox jCBox;
+        if(coletaneas.size()==0){
+            JLabel info = (new JLabel("Nenhum resultado encontrado"));
+            info.setFont(new Font("Verdana",0,16));
+            info.setBounds(posX, posY, 800, 40);
+            add(info);
+        }
+        else{
+            for(int i = 0; i < coletaneas.size();i++){
+                jCBox = new JCBox();
+                jCBox.setBounds(posX, posY,800,20);
+                jCBox.setText(coletaneas.get(i).getNome());
+                jCBox.add(coletaneas.get(i));
+                jCBGroup.add(jCBox);
+                posY+=20;
+                JLabel labelDisco;
+                Disco disco;
+                add(jCBox);
+                for(String discoId:coletaneas.get(i).getColetanea()){
+                    labelDisco = new JLabel(BD.getDiscoById(Integer.parseInt(discoId)).getNome());
+                    labelDisco.setBounds(posX+20, posY,800,20);
+                    labelDisco.setText(BD.getDiscoById(Integer.parseInt(discoId)).getNome());
+                    posY+=20;
+                    add(labelDisco);
+                    JLabel labelFaixa;
+                    Faixa faixa;
+                    for(String faixaId:BD.getDiscoById(Integer.parseInt(discoId)).getDisco()){
+                        faixa = BD.getFaixaById(Integer.parseInt(faixaId));
+                        labelFaixa = new JLabel(faixa.getNome()+" - "+faixa.getAutor());
+                        labelFaixa.setBounds(posX+40, posY, 780, 20);
+                        add(labelFaixa);
+                        posY+=20;
+                    }
+                }
+            }
+        }
     }
     
-    /*public void addDisco(ArrayList<Disco> discos){
-        JCBox jCBox;
-        for(int i = 0; i < discos.size();i++){
-            jCBox = new JCBox();
-            jCBox.setBounds(posX, posY+i*20,800,20);
-            jCBox.setText(faixas.get(i).getNome()+" - "+faixas.get(i).getAutor());
-            jCBox.add(faixas.get(i));
-            jCBGroup.add(jCBox);
-            add(jCBox);
-            posY+=discos.get(i).getNumeroDeFaixas()*20;
-        }
-    }*/
-    
-    public ArrayList<Faixa> getSelected(){
-        ArrayList<Faixa> temp = new ArrayList<Faixa>();
+    public ArrayList<String> getSelectedIds(){
+        ArrayList<String> temp = new ArrayList<String>();
         for(int i = 0; i < jCBGroup.size();i++){
             if(jCBGroup.get(i).isSelected()){
                 if(jCBGroup.get(i).getElement() instanceof Faixa)
-                    temp.add((Faixa)jCBGroup.get(i).getElement());
+                    temp.add(((Faixa)jCBGroup.get(i).getElement()).getId()+"");
+                if(jCBGroup.get(i).getElement() instanceof Disco)
+                    temp.add(((Disco)jCBGroup.get(i).getElement()).getId()+"");
+                if(jCBGroup.get(i).getElement() instanceof Coletanea)
+                    temp.add(((Coletanea)jCBGroup.get(i).getElement()).getId()+"");
             }
         }
         return temp;

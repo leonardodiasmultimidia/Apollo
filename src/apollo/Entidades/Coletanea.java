@@ -6,6 +6,7 @@
 
 package apollo.Entidades;
 
+import apollo.BD.BD;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,18 +18,24 @@ public class Coletanea implements Serializable{
     
     private int id;
     private String nome;
-    private ArrayList<Disco> coletanea;
+    private ArrayList<String> coletanea;
     private float valor;
+    private int duracao;
 
-    public Coletanea(int id, ArrayList<Disco> coletanea, float valor) {
+    public Coletanea(int id, String nome, ArrayList<String> coletanea) {
         this.id = id;
         this.coletanea = coletanea;
-        this.valor = valor;
+        this.valor = 0;
+        this.duracao = 0;
+        this.nome = nome;
     }
 
     public Coletanea() {
         id = -1;
         coletanea = null;
+        valor = 0;
+        duracao = 0;
+        nome = "";
     }
 
     public int getId() {
@@ -48,11 +55,11 @@ public class Coletanea implements Serializable{
     }
     
 
-    public ArrayList<Disco> getColetanea() {
+    public ArrayList<String> getColetanea() {
         return coletanea;
     }
 
-    public void setColetanea(ArrayList<Disco> coletanea) {
+    public void setColetanea(ArrayList<String> coletanea) {
         this.coletanea = coletanea;
     }
     
@@ -60,11 +67,11 @@ public class Coletanea implements Serializable{
         return coletanea.size();
     }
     
-    public void addDisco(Disco disco){
+    public void addDisco(String disco){
         coletanea.add(disco);
     }
     
-    public void removeDisco(Disco disco){
+    public void removeDisco(String disco){
         coletanea.remove(disco);
     }
     
@@ -78,5 +85,27 @@ public class Coletanea implements Serializable{
 
     public void setValor(float valor) {
         this.valor = valor;
+    }
+
+    public int getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(int duracao) {
+        this.duracao = duracao;
+    }
+    
+    public void calculaValor(){
+        this.valor = 0;
+        for(String disco:coletanea)
+            for(String faixa:BD.getDiscoById(Integer.parseInt(disco)).getDisco())
+                valor += BD.getFaixaById(Integer.parseInt(faixa)).getValor();
+    }
+    
+    public void calculaDuracao(){
+        this.duracao = 0;
+        for(String disco:coletanea)
+            for(String faixa:BD.getDiscoById(Integer.parseInt(disco)).getDisco())
+                duracao += BD.getFaixaById(Integer.parseInt(faixa)).getDuracao();
     }
 }

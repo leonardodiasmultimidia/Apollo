@@ -7,8 +7,6 @@
 package apollo.BD;
 
 import apollo.Entidades.Usuario;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *
@@ -29,6 +27,8 @@ public class Validacoes {
                     }
                 }
             }catch(NullPointerException e){
+                return false;
+            }catch(IndexOutOfBoundsException e){
                 return false;
             }
             return true;

@@ -6,6 +6,7 @@
 
 package apollo.Entidades;
 
+import apollo.BD.BD;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -21,15 +22,18 @@ public class Disco implements Serializable{
     private ArrayList<String> disco;
     private float valor;
     
-    public Disco(int id, ArrayList<String> disco, float valor){
+    public Disco(int id, String nome, ArrayList<String> disco){
         this.id = id;
         this.disco = disco;
-        this.valor = valor;
+        this.nome = nome;
     }
     
     public Disco(){
         id = -1;
-        disco = null;
+        disco = new ArrayList<>();
+        nome = "";
+        duracao = 0;
+        valor = 0.0f;
     }
 
     public int getId() {
@@ -87,5 +91,17 @@ public class Disco implements Serializable{
 
     public void setValor(float valor) {
         this.valor = valor;
+    }
+    
+    public void calculaValor(){
+        this.valor = 0;
+        for(String faixa:disco)
+            valor += BD.getFaixaById(Integer.parseInt(faixa)).getValor();
+    }
+    
+    public void calculaDuracao(){
+        this.duracao = 0;
+        for(String faixa:disco)
+            duracao += BD.getFaixaById(Integer.parseInt(faixa)).getDuracao();
     }
 }
