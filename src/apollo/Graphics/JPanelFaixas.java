@@ -10,9 +10,14 @@ import apollo.BD.BD;
 import apollo.Entidades.Coletanea;
 import apollo.Entidades.Disco;
 import apollo.Entidades.Faixa;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,9 +31,12 @@ public class JPanelFaixas extends JPanel{
     private int posY;
     private int posX;
     private ArrayList<JCBox> jCBGroup;
-    
+    private GroupLayout GLayout;
     public JPanelFaixas(){
+        //setLayout(new FlowLayout());
         setLayout(null);
+        //GLayout = new GroupLayout(this);
+        //setLayout(GLayout);
         setBackground(Color.WHITE);
         posY = 0;
         posX = 20;
@@ -39,7 +47,7 @@ public class JPanelFaixas extends JPanel{
         reset();
         JLabel busca = (new JLabel(s));
         busca.setFont(new Font("Verdana",0,16));
-        busca.setBounds(posX, posY, 800, 40);
+        busca.setBounds(posX, posY, 509, 40);
         add(busca);
         posY+=40;
     }
@@ -62,6 +70,7 @@ public class JPanelFaixas extends JPanel{
                 add(jCBox);
                 posY+=20;
             }
+        update();
     }
     
     public void addDiscos(ArrayList<Disco> discos){
@@ -93,6 +102,7 @@ public class JPanelFaixas extends JPanel{
                 
             }
         }
+        update();
     }
     
     public void addColetaneas(ArrayList<Coletanea> coletaneas){
@@ -132,6 +142,7 @@ public class JPanelFaixas extends JPanel{
                 }
             }
         }
+        update();
     }
     
     public ArrayList<String> getSelectedIds(){
@@ -154,6 +165,12 @@ public class JPanelFaixas extends JPanel{
         posX = 20;
         jCBGroup.clear();
         this.removeAll();
+    }
+    
+    private void update(){
+        setPreferredSize(new Dimension(500,posY));
+        validate();
+        repaint();
     }
     
     private class JCBox extends JCheckBox{
