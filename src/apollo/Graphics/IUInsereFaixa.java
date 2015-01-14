@@ -7,10 +7,11 @@
 package apollo.Graphics;
 
 import apollo.BD.BD;
-import apollo.BD.Data;
 import apollo.Entidades.Coletanea;
 import apollo.Entidades.Disco;
 import apollo.Player.ListaDeReproducao;
+import java.awt.Toolkit;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -21,19 +22,23 @@ public class IUInsereFaixa extends javax.swing.JFrame {
     /**
      * Creates new form IUInsereFaixa
      */
+    
     public IUInsereFaixa() {
-        Data.recuperar();
         initComponents();
+        //JSPane = new JScrollPane(jPanelFaixas);
+        //JSPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setTitle("Selecionar Faixas");
+        setSize(830,485);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-getWidth())/2, (Toolkit.getDefaultToolkit().getScreenSize().height-getHeight())/2);
         buttonGroupCategoria.add(jRadioButtonCollections);
         buttonGroupCategoria.add(jRadioButtonDiscos);
         buttonGroupCategoria.add(jRadioButtonFaixas);
         buttonGroupBuscar.add(jRadioButtonNome);
         buttonGroupBuscar.add(jRadioButtonAutor);
-        
     }
 
     /**
@@ -67,7 +72,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
         jLabelSelecao = new java.awt.Label();
         jSeparator6 = new javax.swing.JSeparator();
         jButtonCriar = new javax.swing.JButton();
-        scrollPaneFaixas = new java.awt.ScrollPane();
+        jScrollPane = new javax.swing.JScrollPane();
         jPanelFaixas = new apollo.Graphics.JPanelFaixas();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,7 +116,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
             }
         });
 
-        jButtonBuscar.setText("ir");
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btPesquisar.png"))); // NOI18N
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscarActionPerformed(evt);
@@ -161,37 +166,36 @@ public class IUInsereFaixa extends javax.swing.JFrame {
                         .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelSelecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(20, 20, 20)
-                            .addComponent(jSeparator6))
-                        .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonFaixas)
-                                .addComponent(jRadioButtonDiscos)
-                                .addComponent(jRadioButtonCollections)
-                                .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                                    .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jRadioButtonNome, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jRadioButtonAutor, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGroup(jPanelOptionsLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jButtonInserir)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButtonCriar))))
+                    .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelSelecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jSeparator6))
+                    .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLanelBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButtonFaixas)
+                            .addComponent(jRadioButtonDiscos)
+                            .addComponent(jRadioButtonCollections)
+                            .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                                .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jRadioButtonNome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jRadioButtonAutor, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(jPanelOptionsLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonInserir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCriar)))
                 .addContainerGap())
         );
         jPanelOptionsLayout.setVerticalGroup(
@@ -220,10 +224,10 @@ public class IUInsereFaixa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jRadioButtonAutor)
                 .addGap(11, 11, 11)
-                .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextFieldBuscar))
+                .addGap(20, 20, 20)
                 .addGroup(jPanelOptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelSelecao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,23 +239,43 @@ public class IUInsereFaixa extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        scrollPaneFaixas.add(jPanelFaixas);
+        jScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane.setMaximumSize(new java.awt.Dimension(100, 1000));
+        jScrollPane.setMinimumSize(new java.awt.Dimension(100, 50));
+        jScrollPane.setPreferredSize(new java.awt.Dimension(500, 100));
+        jScrollPane.setRequestFocusEnabled(false);
+
+        jPanelFaixas.setPreferredSize(new java.awt.Dimension(500, 100));
+
+        javax.swing.GroupLayout jPanelFaixasLayout = new javax.swing.GroupLayout(jPanelFaixas);
+        jPanelFaixas.setLayout(jPanelFaixasLayout);
+        jPanelFaixasLayout.setHorizontalGroup(
+            jPanelFaixasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 509, Short.MAX_VALUE)
+        );
+        jPanelFaixasLayout.setVerticalGroup(
+            jPanelFaixasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 436, Short.MAX_VALUE)
+        );
+
+        jScrollPane.setViewportView(jPanelFaixas);
 
         javax.swing.GroupLayout jPanelFundoLayout = new javax.swing.GroupLayout(jPanelFundo);
         jPanelFundo.setLayout(jPanelFundoLayout);
         jPanelFundoLayout.setHorizontalGroup(
             jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFundoLayout.createSequentialGroup()
-                .addComponent(scrollPaneFaixas, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 528, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jPanelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanelFundoLayout.setVerticalGroup(
             jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFundoLayout.createSequentialGroup()
-                .addComponent(jPanelOptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(scrollPaneFaixas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -270,59 +294,6 @@ public class IUInsereFaixa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jRadioButtonFaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFaixasActionPerformed
-        jButtonCriar.setVisible(true);
-        jButtonCriar.setText("Criar Disco");
-    }//GEN-LAST:event_jRadioButtonFaixasActionPerformed
-
-    private void jRadioButtonNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButtonNomeActionPerformed
-
-    private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed
-        jButtonBuscarActionPerformed(evt);                
-    }//GEN-LAST:event_jTextFieldBuscarActionPerformed
-
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        jPanelFaixas.addTexto("Resultado de busca para \""+jTextFieldBuscar.getText()+"\"");
-        if (jRadioButtonNome.isSelected()) {
-            if (jRadioButtonFaixas.isSelected()){
-                jPanelFaixas.addFaixas(BD.getAllFaixaByNome(jTextFieldBuscar.getText().toUpperCase()));
-            }
-            else if (jRadioButtonDiscos.isSelected()){
-                jPanelFaixas.addDiscos(BD.getAllDiscoByNome(jTextFieldBuscar.getText().toUpperCase()));
-            }
-            else{
-                jPanelFaixas.addColetaneas(BD.getAllColetaneaByNome(jTextFieldBuscar.getText().toUpperCase()));
-            }
-        } else if(jRadioButtonAutor.isSelected()){
-            if (jRadioButtonFaixas.isSelected()){ 
-                jPanelFaixas.addFaixas(BD.getAllFaixaByAutor(jTextFieldBuscar.getText().toUpperCase()));
-            }
-            else if (jRadioButtonDiscos.isSelected()){
-                jPanelFaixas.addDiscos(BD.getAllDiscoByAutor(jTextFieldBuscar.getText().toUpperCase()));
-            }
-            else{
-                jPanelFaixas.addColetaneas(BD.getAllColetaneaByAutor(jTextFieldBuscar.getText().toUpperCase()));
-            }
-        }
-        jPanelFaixas.validate();
-        jPanelFaixas.repaint();
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
-
-    private void jButtonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirActionPerformed
-        if(jRadioButtonFaixas.isSelected())
-            for(String faixaId:jPanelFaixas.getSelectedIds())
-                ListaDeReproducao.insereFaixa(BD.getFaixaById(Integer.parseInt(faixaId)));
-        else if(jRadioButtonDiscos.isSelected())
-            for(String discoId:jPanelFaixas.getSelectedIds())
-                ListaDeReproducao.insereOutraLista(BD.getAllFaixaByDisco(BD.getDiscoById(Integer.parseInt(discoId))));
-        else if(jRadioButtonCollections.isSelected())
-            for(String coletaneaId:jPanelFaixas.getSelectedIds())
-                ListaDeReproducao.insereOutraLista(BD.getAllFaixaByColetanea(BD.getColetaneaById(Integer.parseInt(coletaneaId))));
-        dispose();
-    }//GEN-LAST:event_jButtonInserirActionPerformed
-
     private void jButtonCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCriarActionPerformed
         if(jRadioButtonFaixas.isSelected()){
             Disco d = new Disco(-1,"",jPanelFaixas.getSelectedIds());
@@ -338,14 +309,68 @@ public class IUInsereFaixa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonCriarActionPerformed
 
+    private void jButtonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirActionPerformed
+        if(jRadioButtonFaixas.isSelected())
+        for(String faixaId:jPanelFaixas.getSelectedIds())
+        ListaDeReproducao.insereFaixa(BD.getFaixaById(Integer.parseInt(faixaId)));
+        else if(jRadioButtonDiscos.isSelected())
+        for(String discoId:jPanelFaixas.getSelectedIds())
+        ListaDeReproducao.insereOutraLista(BD.getAllFaixaByDisco(BD.getDiscoById(Integer.parseInt(discoId))));
+        else if(jRadioButtonCollections.isSelected())
+        for(String coletaneaId:jPanelFaixas.getSelectedIds()){
+            ListaDeReproducao.insereOutraLista(BD.getAllFaixaByColetanea(BD.getColetaneaById(Integer.parseInt(coletaneaId))));
+        }
+        dispose();
+    }//GEN-LAST:event_jButtonInserirActionPerformed
+
+    private void jRadioButtonNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonNomeActionPerformed
+
+    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
+        jPanelFaixas.addTexto("Resultado de busca para \""+jTextFieldBuscar.getText()+"\"");
+        if (jRadioButtonNome.isSelected()) {
+            if (jRadioButtonFaixas.isSelected()){
+                jPanelFaixas.addFaixas(BD.getAllFaixaByNome(jTextFieldBuscar.getText().toUpperCase()));
+            }
+            else if (jRadioButtonDiscos.isSelected()){
+                jPanelFaixas.addDiscos(BD.getAllDiscoByNome(jTextFieldBuscar.getText().toUpperCase()));
+            }
+            else{
+                jPanelFaixas.addColetaneas(BD.getAllColetaneaByNome(jTextFieldBuscar.getText().toUpperCase()));
+            }
+        } else if(jRadioButtonAutor.isSelected()){
+            if (jRadioButtonFaixas.isSelected()){
+                jPanelFaixas.addFaixas(BD.getAllFaixaByAutor(jTextFieldBuscar.getText().toUpperCase()));
+            }
+            else if (jRadioButtonDiscos.isSelected()){
+                jPanelFaixas.addDiscos(BD.getAllDiscoByAutor(jTextFieldBuscar.getText().toUpperCase()));
+            }
+            else{
+                jPanelFaixas.addColetaneas(BD.getAllColetaneaByAutor(jTextFieldBuscar.getText().toUpperCase()));
+            }
+        }
+        validate();
+        repaint();
+    }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jTextFieldBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBuscarActionPerformed
+        jButtonBuscarActionPerformed(evt);
+    }//GEN-LAST:event_jTextFieldBuscarActionPerformed
+
+    private void jRadioButtonCollectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCollectionsActionPerformed
+        jButtonCriar.setVisible(false);
+    }//GEN-LAST:event_jRadioButtonCollectionsActionPerformed
+
     private void jRadioButtonDiscosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonDiscosActionPerformed
         jButtonCriar.setText("Criar Coletânea");
         jButtonCriar.setVisible(true);
     }//GEN-LAST:event_jRadioButtonDiscosActionPerformed
 
-    private void jRadioButtonCollectionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonCollectionsActionPerformed
-       jButtonCriar.setVisible(false);
-    }//GEN-LAST:event_jRadioButtonCollectionsActionPerformed
+    private void jRadioButtonFaixasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonFaixasActionPerformed
+        jButtonCriar.setVisible(true);
+        jButtonCriar.setText("Criar Disco");
+    }//GEN-LAST:event_jRadioButtonFaixasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -398,6 +423,7 @@ public class IUInsereFaixa extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButtonDiscos;
     private javax.swing.JRadioButton jRadioButtonFaixas;
     private javax.swing.JRadioButton jRadioButtonNome;
+    private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -406,7 +432,6 @@ public class IUInsereFaixa extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JTextField jTextFieldBuscar;
     private java.awt.Label label1;
-    private java.awt.ScrollPane scrollPaneFaixas;
     // End of variables declaration//GEN-END:variables
 
 }

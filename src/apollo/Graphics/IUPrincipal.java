@@ -6,18 +6,17 @@
 
 package apollo.Graphics;
 
-import apollo.BD.BD;
-import apollo.BD.Data;
 import apollo.Entidades.Usuario;
 import apollo.Listenners.tableListenner;
 import apollo.Player.ListaDeReproducao;
 import apollo.Player.Reprodutor;
+import java.awt.Toolkit;
 
 /**
  *
  * @author Leonardo Dias
  */
-public class IUPrincipal extends javax.swing.JFrame {
+public class IUPrincipal extends javax.swing.JFrame{
 
     private static Usuario sessao = null;
     /**
@@ -30,8 +29,8 @@ public class IUPrincipal extends javax.swing.JFrame {
         setResizable(false);
         setVisible(true);
         setSize(236, 480);
+        setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-getWidth())/2, (Toolkit.getDefaultToolkit().getScreenSize().height-getHeight())/2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        jLabelListName.setText("Lista sem nome");
         jLabelTrackName.setText("- -");
         jLabelTrackAutor.setText("- -");
         jLabelTrackTime.setText("00:00/- -:- -");
@@ -67,7 +66,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         jPanelTop = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListaReproducao = new javax.swing.JTable();
-        jLabelListName = new javax.swing.JLabel();
         jLabelTrackName = new javax.swing.JLabel();
         jLabelTrackTime = new javax.swing.JLabel();
         jLabelTrackAutor = new javax.swing.JLabel();
@@ -77,8 +75,9 @@ public class IUPrincipal extends javax.swing.JFrame {
         btStop = new javax.swing.JButton();
         btNext = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
-        jMenuReproductionList = new javax.swing.JMenu();
+        jMenuOptions = new javax.swing.JMenu();
         jMenuInsertTrack = new javax.swing.JMenuItem();
+        jMenuFatura = new javax.swing.JMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -118,9 +117,6 @@ public class IUPrincipal extends javax.swing.JFrame {
         jTableListaReproducao.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTableListaReproducao);
 
-        jLabelListName.setFont(new java.awt.Font("Consolas", 3, 14)); // NOI18N
-        jLabelListName.setText("Nome da Lista");
-
         jLabelTrackName.setText("Nome da Musica");
 
         jLabelTrackTime.setText("00:00/00:00");
@@ -132,30 +128,18 @@ public class IUPrincipal extends javax.swing.JFrame {
         jPanelTopLayout.setHorizontalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelTopLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabelListName))
-                    .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelTrackName))
-                    .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelTrackTime))
-                    .addGroup(jPanelTopLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabelTrackAutor)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelTrackName)
+                    .addComponent(jLabelTrackTime)
+                    .addComponent(jLabelTrackAutor))
                 .addContainerGap())
         );
         jPanelTopLayout.setVerticalGroup(
             jPanelTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTopLayout.createSequentialGroup()
-                .addGap(5, 5, 5)
-                .addComponent(jLabelListName)
-                .addGap(5, 5, 5)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabelTrackName)
@@ -251,7 +235,7 @@ public class IUPrincipal extends javax.swing.JFrame {
 
         jMenuBar.setBackground(new java.awt.Color(250, 250, 250));
 
-        jMenuReproductionList.setText("Lista de Reprodução");
+        jMenuOptions.setText("Opções");
 
         jMenuInsertTrack.setText("Inserir Faixa");
         jMenuInsertTrack.setToolTipText("");
@@ -260,9 +244,18 @@ public class IUPrincipal extends javax.swing.JFrame {
                 jMenuInsertTrackActionPerformed(evt);
             }
         });
-        jMenuReproductionList.add(jMenuInsertTrack);
+        jMenuOptions.add(jMenuInsertTrack);
 
-        jMenuBar.add(jMenuReproductionList);
+        jMenuFatura.setText("Fatura");
+        jMenuFatura.setToolTipText("");
+        jMenuFatura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuFaturaActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jMenuFatura);
+
+        jMenuBar.add(jMenuOptions);
 
         setJMenuBar(jMenuBar);
 
@@ -307,6 +300,10 @@ public class IUPrincipal extends javax.swing.JFrame {
         new IUInsereFaixa();
     }//GEN-LAST:event_jMenuInsertTrackActionPerformed
 
+    private void jMenuFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFaturaActionPerformed
+        new IURelatorio(sessao);
+    }//GEN-LAST:event_jMenuFaturaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,7 +336,6 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btPlay;
     private javax.swing.JButton btPrev;
     private javax.swing.JButton btStop;
-    private javax.swing.JLabel jLabelListName;
     private static javax.swing.JLabel jLabelTrackAutor;
     private static javax.swing.JLabel jLabelTrackName;
     private static javax.swing.JLabel jLabelTrackTime;
@@ -350,8 +346,9 @@ public class IUPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuFatura;
     private javax.swing.JMenuItem jMenuInsertTrack;
-    private javax.swing.JMenu jMenuReproductionList;
+    private javax.swing.JMenu jMenuOptions;
     private javax.swing.JPanel jPanelBot;
     private javax.swing.JPanel jPanelFundo;
     private javax.swing.JPanel jPanelTop;

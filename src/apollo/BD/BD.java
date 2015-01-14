@@ -52,6 +52,14 @@ public class BD{
         coletaneas.add(coletanea);
     }
     
+    public static void pagar(int idUsuario, Calendar data){
+        for(Cobranca cobranca: extrato)
+            if(cobranca.getIdUsuario() == idUsuario && cobranca.getData().get(Calendar.YEAR) == data.get(Calendar.YEAR)
+                    && cobranca.getData().get(Calendar.MONTH) == data.get(Calendar.MONTH)
+                    && !cobranca.isPago())
+                cobranca.pagar();
+    }
+    
     public static Configuracoes getConfiguracoes(){
         return config;
     }
@@ -76,10 +84,32 @@ public class BD{
         return extratoRetorno;
     }
     
-    public static ArrayList<Cobranca> getAllCobrancaOf(int idUsuario, Calendar dataInicial, Calendar dataFinal){
+    public static ArrayList<Cobranca> getAllCobrancaOf(int idUsuario, Calendar data){
+        ArrayList<Cobranca> extratoRetorno = new ArrayList<>();
+        for(Cobranca cobranca: extrato){
+            if(cobranca.getIdUsuario() == idUsuario && cobranca.getData().get(Calendar.YEAR) == data.get(Calendar.YEAR)
+                    && cobranca.getData().get(Calendar.MONTH) == data.get(Calendar.MONTH))
+                extratoRetorno.add(cobranca);
+        }
+        return extratoRetorno;
+    }
+    
+    public static ArrayList<Cobranca> getAllCobrancaPendentesOf(int idUsuario, Calendar data){
         ArrayList<Cobranca> extratoRetorno = new ArrayList<>();
         for(Cobranca cobranca: extrato)
-            if(cobranca.getIdUsuario() == idUsuario && cobranca.getData().after(dataInicial) && cobranca.getData().before(dataFinal))
+            if(cobranca.getIdUsuario() == idUsuario && cobranca.getData().get(Calendar.YEAR) == data.get(Calendar.YEAR)
+                    && cobranca.getData().get(Calendar.MONTH) == data.get(Calendar.MONTH)
+                    && !cobranca.isPago())
+                extratoRetorno.add(cobranca);
+        return extratoRetorno;
+    }
+    
+    public static ArrayList<Cobranca> getAllCobrancaPagasOf(int idUsuario, Calendar data){
+        ArrayList<Cobranca> extratoRetorno = new ArrayList<>();
+        for(Cobranca cobranca: extrato)
+            if(cobranca.getIdUsuario() == idUsuario && cobranca.getData().get(Calendar.YEAR) == data.get(Calendar.YEAR)
+                    && cobranca.getData().get(Calendar.MONTH) == data.get(Calendar.MONTH)
+                    && cobranca.isPago())
                 extratoRetorno.add(cobranca);
         return extratoRetorno;
     }
@@ -185,7 +215,7 @@ public class BD{
     
     public static Usuario getUsuarioBy(String email, String senha){
         for(Usuario usuario: usuarios)
-            if(usuario.getEmail().equals(email) && usuario.getSenha().equals(senha))
+            if(usuario.getEmail().toUpperCase().equals(email.toUpperCase()) && usuario.getSenha().equals(senha))
                 return usuario;
         return null;
     }
@@ -214,6 +244,7 @@ public class BD{
         //        return coletanea;
         if(coletaneas.get(idColetanea)!=null)
             return coletaneas.get(idColetanea);
+        System.out.println("Não achou pelo ID");
         return null;
     }
 }

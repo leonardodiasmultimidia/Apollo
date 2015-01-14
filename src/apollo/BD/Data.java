@@ -65,7 +65,7 @@ public class Data {
             else if(dados.equals("Cobrancas"))
                 obj = BD.getAllCobranca();
             else if(dados.equals("Config"))
-                obj = new Configuracoes();
+                obj = BD.getConfiguracoes();
             
             if(!dados.equals("Config")){
                 oos.writeInt(((ArrayList<Object>) obj).size());
@@ -133,6 +133,11 @@ public class Data {
                 }
                 else{
                     lista = (Object) ois.readObject();
+                    BD.getConfiguracoes().setConfiguracoes(((Configuracoes)lista).getUsuarioId(),
+                            ((Configuracoes)lista).getFaixaId(),
+                            ((Configuracoes)lista).getDiscoId(),
+                            ((Configuracoes)lista).getColetaneaId(),
+                            ((Configuracoes)lista).getCobrancaId());
                 }
             } catch (ClassNotFoundException ex) {
                 salvarDados(dados);

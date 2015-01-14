@@ -6,6 +6,10 @@
 
 package apollo.BD;
 
+import apollo.Entidades.Cobranca;
+import java.util.ArrayList;
+import java.util.Calendar;
+
 /**
  *
  * @author Leonardo Dias
@@ -24,6 +28,14 @@ public class Utilitarios {
         if(duracao<10)
             retorno += "0";
         retorno += duracao;
+        return retorno;
+    }
+    
+    public static String getData(Calendar Data){
+        String retorno = "";
+        retorno += Data.get(Calendar.DAY_OF_MONTH)+"/";
+        retorno += (Data.get(Calendar.MONTH)+1)+"/";
+        retorno += Data.get(Calendar.YEAR);
         return retorno;
     }
 }

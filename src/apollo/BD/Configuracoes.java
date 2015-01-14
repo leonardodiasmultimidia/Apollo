@@ -25,6 +25,15 @@ public class Configuracoes implements Serializable{
     private String cobrancaDat = "data/cobranca.dat";
     private String configDat = "data/config.dat";
 
+    
+    public void setConfiguracoes(int usuario, int faixa, int disco, int coletanea, int cobranca){
+        this.usuarioIdAI = usuario;
+        this.faixaIdAI = faixa;
+        this.discoIdAI = disco;
+        this.coletaneaIdAI = coletanea;
+        this.cobrancaIdAI = cobranca;
+    }
+    
     public int getUsuarioIdAI() {
         return usuarioIdAI++;
     }
@@ -43,6 +52,26 @@ public class Configuracoes implements Serializable{
 
     public int getCobrancaIdAI() {
         return cobrancaIdAI++;
+    }
+    
+    public int getUsuarioId() {
+        return usuarioIdAI;
+    }
+
+    public int getFaixaId() {
+        return faixaIdAI;
+    }
+
+    public int getDiscoId() {
+        return discoIdAI;
+    }
+
+    public int getColetaneaId() {
+        return coletaneaIdAI;
+    }
+
+    public int getCobrancaId() {
+        return cobrancaIdAI;
     }
 
     public String getUsuarioDat() {

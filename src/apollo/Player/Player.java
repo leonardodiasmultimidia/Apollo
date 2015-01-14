@@ -26,6 +26,7 @@ public class Player implements Runnable{
     
     public Player(String file){
         this.file = new File(file);
+        //this.file = new File("D:\\Private\\ApolloNB\\lib\\01.ogg");
     }
     
     public void play()

@@ -6,7 +6,7 @@
 
 package DAO;
 
-import Entidades.Faixa;
+import apollo.Entidades.Faixa;
 import SQL.Conexao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -8,8 +8,6 @@ package apollo.Graphics;
 
 import apollo.BD.BD;
 import apollo.BD.Data;
-import apollo.Entidades.Disco;
-import apollo.Entidades.Faixa;
 import apollo.Entidades.Usuario;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -35,7 +33,11 @@ public class IULogin extends javax.swing.JFrame {
         //BD.adicionaFaixa(new Faixa(-1, "lib/07", 161, "Have You Ever Seen The Rain", "Creedence Clearwater Revival", 1.99f));
         //BD.adicionaFaixa(new Faixa(-1, "lib/08", 321, "Carry On My Wayward Son", "Kansas", 3.99f));
         //BD.adicionaFaixa(new Faixa(-1, "lib/09", 76, "Breaking Bad Theme", "AMC", 3.99f));
+        //BD.adicionaFaixa(new Faixa(-1, "lib/10", 296, "I Don't Wanna Miss a Thing", "Aerosmith", 4.99f));
         //Data.salvarFaixas();
+        //Data.salvarConfiguracoes();
+        //BD.adicionaUsuario(new Usuario(-1, "Leonardo Dias", "admin", "admin"));
+        //Data.salvarUsuarios();
         //Data.salvarConfiguracoes();
         setResizable(false);
         setTitle("Autenticação");
@@ -61,6 +63,7 @@ public class IULogin extends javax.swing.JFrame {
         jPasswordFieldSenha = new javax.swing.JPasswordField();
         jButtonLogin = new javax.swing.JButton();
         jButtonCadastrar = new javax.swing.JButton();
+        jButtonUsuarios = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +102,13 @@ public class IULogin extends javax.swing.JFrame {
             }
         });
 
+        jButtonUsuarios.setText("Usuarios");
+        jButtonUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUsuariosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -121,7 +131,9 @@ public class IULogin extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButtonLogin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButtonCadastrar)))))
+                                .addComponent(jButtonCadastrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonUsuarios)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -138,7 +150,8 @@ public class IULogin extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCadastrar)
-                    .addComponent(jButtonLogin))
+                    .addComponent(jButtonLogin)
+                    .addComponent(jButtonUsuarios))
                 .addContainerGap())
         );
 
@@ -192,6 +205,10 @@ public class IULogin extends javax.swing.JFrame {
         jButtonLoginActionPerformed(evt);
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
+    private void jButtonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUsuariosActionPerformed
+        new IUUsuarios();
+    }//GEN-LAST:event_jButtonUsuariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -205,7 +222,7 @@ public class IULogin extends javax.swing.JFrame {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+                    //break;
                 }
             }
         } catch (ClassNotFoundException ex) {
@@ -230,6 +247,7 @@ public class IULogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonLogin;
+    private javax.swing.JButton jButtonUsuarios;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelSenha;
     private javax.swing.JPanel jPanel1;

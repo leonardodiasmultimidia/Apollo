@@ -61,6 +61,7 @@ public class Reprodutor {
         threadProgressBar.start();
         BD.adicionaCobranca(new Cobranca(-1, faixaId, IUPrincipal.getSessao().getId(), Calendar.getInstance()));
         Data.salvarCobrancas();
+        Data.salvarConfiguracoes();
     }
     
     public void resume(){
@@ -70,7 +71,7 @@ public class Reprodutor {
                 player.notify();
             }
             synchronized(pBT){
-                threadProgressBar.notify();
+                pBT.notify();
             }
         }
         
