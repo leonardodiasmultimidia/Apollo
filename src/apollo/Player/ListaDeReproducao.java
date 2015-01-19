@@ -40,7 +40,10 @@ public class ListaDeReproducao {
     }
     
     public static void removeFaixa(int pos){
+        if(faixaAtual == pos)
+            parar();
         lista.remove(pos);
+        model.removeRow(pos);
     }
     
     public static void limpaLista(){
@@ -55,11 +58,19 @@ public class ListaDeReproducao {
     public static void proxMusica(){
         if(lista.isEmpty())
             return;
-        if(Configuracoes.getShuffle()){
-            faixaAtual = random.nextInt(lista.size());
+        if(Configuracoes.getRepeatState()  != Configuracoes.REPETIR_UMA){
+            if(Configuracoes.getShuffle())
+                faixaAtual = random.nextInt(lista.size());
+            else 
+            {   
+                faixaAtual++;
+                if(faixaAtual>=lista.size() && Configuracoes.getRepeatState()==Configuracoes.REPETIR_TUDO) 
+                    faixaAtual = 0;
+                else
+                    parar();
+                return;
+            }
         }
-        else faixaAtual++;
-        if(faixaAtual>=lista.size()) faixaAtual = 0;
         tocar();
     }
     
@@ -90,18 +101,20 @@ public class ListaDeReproducao {
         reprodutor.play();
         IUPrincipal.setLabelTrackName(lista.get(faixaAtual).getNome());
         IUPrincipal.setLabelTrackAutor(lista.get(faixaAtual).getAutor());
-        IUPrincipal.setLabelTrackTime("00:00/"+(int)lista.get(faixaAtual).getDuracao()/60+":"+lista.get(faixaAtual).getDuracao()%60);
+        IUPrincipal.setLabelTrackTime("00:00/"+(int)lista.get(faixaAtual).getDuracao()/60+":"+(lista.get(faixaAtual).getDuracao()%60<10?"0"+lista.get(faixaAtual).getDuracao()%60:lista.get(faixaAtual).getDuracao()%60));
         IUPrincipal.setJProgressBarLenght(lista.get(faixaAtual).getDuracao());
+        IUPrincipal.setBtPause();
     }
     
     public static void continuar(){
-        System.out.println("continuando");
         reprodutor.resume();
+        IUPrincipal.setBtPause();
+        
     }
     
     public static void pause(){
-        System.out.println("pausando...");
         reprodutor.pause();
+        IUPrincipal.setBtPlay();
     }
     
     public static void tocarAt(int pos){ //NAO IMPLEMENTADO
@@ -115,6 +128,7 @@ public class ListaDeReproducao {
         IUPrincipal.setLabelTrackAutor("- -");
         IUPrincipal.setLabelTrackTime("00:00/-- --");
         IUPrincipal.setJProgressBarZero();
+        IUPrincipal.setBtPlay();
     }
     
 }

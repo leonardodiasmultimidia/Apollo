@@ -94,11 +94,7 @@ public class Player implements Runnable{
         line.close();
         din.close();
         if(Reprodutor.getStatus()!=Reprodutor.STOPPED){
-            if(Configuracoes.getRepeatState() == Configuracoes.REPETIR_UMA)
-                ListaDeReproducao.tocar();
-            else{
                 ListaDeReproducao.proxMusica();
-            }
         }
       }	
 

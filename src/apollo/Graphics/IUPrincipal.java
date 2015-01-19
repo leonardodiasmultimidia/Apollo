@@ -8,9 +8,11 @@ package apollo.Graphics;
 
 import apollo.Entidades.Usuario;
 import apollo.Listenners.tableListenner;
+import apollo.Player.Configuracoes;
 import apollo.Player.ListaDeReproducao;
 import apollo.Player.Reprodutor;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -35,15 +37,10 @@ public class IUPrincipal extends javax.swing.JFrame{
         jLabelTrackAutor.setText("- -");
         jLabelTrackTime.setText("00:00/- -:- -");
         jTableListaReproducao.getColumnModel().getColumn(1).setPreferredWidth(5);
-        
-        jTableListaReproducao.addMouseListener(new tableListenner());
-        //FaixasDAO daofaixas = new FaixasDAO();
+        tableListenner tableEvent = new tableListenner();
+        jTableListaReproducao.addMouseListener(tableEvent);
+        jTableListaReproducao.addKeyListener(tableEvent);
         ListaDeReproducao.iniciaLista();
-        /*try {
-            ListaDeReproducao.insereOutraLista(daofaixas.getListFaixaByAutor(""));
-        } catch (SQLException ex) {
-            Logger.getLogger(Window.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
     }
 
     /**
@@ -77,7 +74,11 @@ public class IUPrincipal extends javax.swing.JFrame{
         jMenuBar = new javax.swing.JMenuBar();
         jMenuOptions = new javax.swing.JMenu();
         jMenuInsertTrack = new javax.swing.JMenuItem();
-        jMenuFatura = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        jRadioButtonMenuNoRepeat = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuRepeatOne = new javax.swing.JRadioButtonMenuItem();
+        jRadioButtonMenuRepeatAll = new javax.swing.JRadioButtonMenuItem();
+        jCheckBoxMenuShuffle = new javax.swing.JCheckBoxMenuItem();
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -152,7 +153,6 @@ public class IUPrincipal extends javax.swing.JFrame{
 
         jPanelBot.setBackground(new java.awt.Color(250, 250, 250));
 
-        btPrev.setBackground(new java.awt.Color(250, 250, 250));
         btPrev.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/btPrev.png"))); // NOI18N
         btPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,26 +186,25 @@ public class IUPrincipal extends javax.swing.JFrame{
         jPanelBotLayout.setHorizontalGroup(
             jPanelBotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(btPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btPlay, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btStop, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btNext, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addGap(0, 0, 0))
         );
         jPanelBotLayout.setVerticalGroup(
             jPanelBotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBotLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addGroup(jPanelBotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btStop, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btNext, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelBotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btStop, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(btPrev, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btPlay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPlay, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -245,15 +244,41 @@ public class IUPrincipal extends javax.swing.JFrame{
             }
         });
         jMenuOptions.add(jMenuInsertTrack);
+        jMenuOptions.add(jSeparator2);
 
-        jMenuFatura.setText("Fatura");
-        jMenuFatura.setToolTipText("");
-        jMenuFatura.addActionListener(new java.awt.event.ActionListener() {
+        jRadioButtonMenuNoRepeat.setSelected(true);
+        jRadioButtonMenuNoRepeat.setText("Não Repetir");
+        jRadioButtonMenuNoRepeat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuFaturaActionPerformed(evt);
+                jRadioButtonMenuNoRepeatActionPerformed(evt);
             }
         });
-        jMenuOptions.add(jMenuFatura);
+        jMenuOptions.add(jRadioButtonMenuNoRepeat);
+
+        jRadioButtonMenuRepeatOne.setText("Repetir Um");
+        jRadioButtonMenuRepeatOne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuRepeatOneActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jRadioButtonMenuRepeatOne);
+
+        jRadioButtonMenuRepeatAll.setText("Repetir Todos");
+        jRadioButtonMenuRepeatAll.setToolTipText("");
+        jRadioButtonMenuRepeatAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuRepeatAllActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jRadioButtonMenuRepeatAll);
+
+        jCheckBoxMenuShuffle.setText("Aleatório");
+        jCheckBoxMenuShuffle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBoxMenuShuffleActionPerformed(evt);
+            }
+        });
+        jMenuOptions.add(jCheckBoxMenuShuffle);
 
         jMenuBar.add(jMenuOptions);
 
@@ -300,9 +325,31 @@ public class IUPrincipal extends javax.swing.JFrame{
         new IUInsereFaixa();
     }//GEN-LAST:event_jMenuInsertTrackActionPerformed
 
-    private void jMenuFaturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuFaturaActionPerformed
-        new IURelatorio(sessao);
-    }//GEN-LAST:event_jMenuFaturaActionPerformed
+    private void jRadioButtonMenuNoRepeatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuNoRepeatActionPerformed
+        jRadioButtonMenuRepeatAll.setSelected(false);
+        jRadioButtonMenuRepeatOne.setSelected(false);
+        jRadioButtonMenuNoRepeat.setSelected(true);
+        Configuracoes.changeRepeatState(Configuracoes.NONE);
+    }//GEN-LAST:event_jRadioButtonMenuNoRepeatActionPerformed
+
+    private void jRadioButtonMenuRepeatOneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuRepeatOneActionPerformed
+        jRadioButtonMenuRepeatAll.setSelected(false);
+        jRadioButtonMenuRepeatOne.setSelected(true);
+        jRadioButtonMenuNoRepeat.setSelected(false);
+        Configuracoes.changeRepeatState(Configuracoes.REPETIR_UMA);
+    }//GEN-LAST:event_jRadioButtonMenuRepeatOneActionPerformed
+
+    private void jRadioButtonMenuRepeatAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuRepeatAllActionPerformed
+        jRadioButtonMenuRepeatAll.setSelected(true);
+        jRadioButtonMenuRepeatOne.setSelected(false);
+        jRadioButtonMenuNoRepeat.setSelected(false);
+        Configuracoes.changeRepeatState(Configuracoes.REPETIR_TUDO);
+    }//GEN-LAST:event_jRadioButtonMenuRepeatAllActionPerformed
+
+    private void jCheckBoxMenuShuffleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxMenuShuffleActionPerformed
+        Configuracoes.changeShuffle();
+        jCheckBoxMenuShuffle.setSelected(Configuracoes.getShuffle());
+    }//GEN-LAST:event_jCheckBoxMenuShuffleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,10 +379,11 @@ public class IUPrincipal extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btNext;
-    private javax.swing.JButton btPlay;
-    private javax.swing.JButton btPrev;
-    private javax.swing.JButton btStop;
+    private static javax.swing.JButton btNext;
+    private static javax.swing.JButton btPlay;
+    private static javax.swing.JButton btPrev;
+    private static javax.swing.JButton btStop;
+    private javax.swing.JCheckBoxMenuItem jCheckBoxMenuShuffle;
     private static javax.swing.JLabel jLabelTrackAutor;
     private static javax.swing.JLabel jLabelTrackName;
     private static javax.swing.JLabel jLabelTrackTime;
@@ -346,14 +394,17 @@ public class IUPrincipal extends javax.swing.JFrame{
     private javax.swing.JMenuBar jMenuBar;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuFatura;
     private javax.swing.JMenuItem jMenuInsertTrack;
     private javax.swing.JMenu jMenuOptions;
     private javax.swing.JPanel jPanelBot;
     private javax.swing.JPanel jPanelFundo;
     private javax.swing.JPanel jPanelTop;
     private static javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuNoRepeat;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuRepeatAll;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuRepeatOne;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     public static javax.swing.JTable jTableListaReproducao;
     // End of variables declaration//GEN-END:variables
 
@@ -390,5 +441,13 @@ public class IUPrincipal extends javax.swing.JFrame{
     
     public static Usuario getSessao(){
         return sessao;
+    }
+    
+    public static void setBtPlay(){
+        btPlay.setIcon(new ImageIcon("src/images/btPlay.png"));
+    }
+    
+    public static void setBtPause(){
+        btPlay.setIcon(new ImageIcon("src/images/btPause.png"));
     }
 }

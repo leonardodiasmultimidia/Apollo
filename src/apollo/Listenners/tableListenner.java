@@ -7,8 +7,9 @@
 package apollo.Listenners;
 
 import apollo.Graphics.IUPrincipal;
-import apollo.Graphics.Window;
 import apollo.Player.ListaDeReproducao;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -16,7 +17,7 @@ import java.awt.event.MouseListener;
  *
  * @author Leonardo Dias
  */
-public class tableListenner implements MouseListener{
+public class tableListenner implements MouseListener, KeyListener{
 
     static int lastClick = -1;
 
@@ -46,5 +47,23 @@ public class tableListenner implements MouseListener{
     @Override
     public void mouseExited(MouseEvent me) {
 
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_DELETE)
+            ListaDeReproducao.removeFaixa(IUPrincipal.jTableListaReproducao.getSelectedRow());
+        else if(e.getKeyCode() == KeyEvent.VK_ENTER)
+            ListaDeReproducao.tocarAt(IUPrincipal.jTableListaReproducao.getSelectedRow());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
     }
 }

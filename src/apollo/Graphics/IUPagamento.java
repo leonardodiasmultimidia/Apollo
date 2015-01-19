@@ -6,6 +6,9 @@
 
 package apollo.Graphics;
 
+import apollo.Entidades.Cobranca;
+import java.util.ArrayList;
+
 /**
  *
  * @author Leonardo Dias
@@ -15,8 +18,14 @@ public class IUPagamento extends javax.swing.JFrame {
     /**
      * Creates new form IUPagamento
      */
-    public IUPagamento() {
+    ArrayList<Cobranca> cobranca;
+    public IUPagamento(ArrayList<Cobranca> cobranca, float valor) {
         initComponents();
+        setVisible(true);
+        setResizable(false);
+        jTextFieldValor.setText(""+valor);
+        this.cobranca = cobranca;
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -102,7 +111,10 @@ public class IUPagamento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonQuitarActionPerformed
-        
+            for(Cobranca item:cobranca){
+                item.pagar();
+            }
+            dispose();
     }//GEN-LAST:event_jButtonQuitarActionPerformed
 
     /**
@@ -131,13 +143,6 @@ public class IUPagamento extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(IUPagamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IUPagamento().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -10,6 +10,7 @@ import apollo.BD.BD;
 import apollo.Entidades.Usuario;
 import java.awt.Toolkit;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -31,6 +32,7 @@ public class IURelatorio extends javax.swing.JFrame {
         setTitle("Relatório Usuário");
         setSize(830,485);
         setLocation((Toolkit.getDefaultToolkit().getScreenSize().width-getWidth())/2, (Toolkit.getDefaultToolkit().getScreenSize().height-getHeight())/2);
+        jButtonPagar.setEnabled(false);
     }
 
     /**
@@ -109,7 +111,7 @@ public class IURelatorio extends javax.swing.JFrame {
 
         jComboBoxMes.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
-        jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2014", "2015" }));
+        jComboBoxAno.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2015" }));
 
         jButtonPagar.setText("Quitar");
         jButtonPagar.addActionListener(new java.awt.event.ActionListener() {
@@ -204,11 +206,12 @@ public class IURelatorio extends javax.swing.JFrame {
         );
         jPanelFundoLayout.setVerticalGroup(
             jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelFundoLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelFundoLayout.createSequentialGroup()
+                .addGap(0, 0, 0)
                 .addGroup(jPanelFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanelOptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 0, 0))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,28 +241,32 @@ public class IURelatorio extends javax.swing.JFrame {
         }
         else if(jRadioButtonPagos.isSelected())
             jPanelUsuario.addCobranca(BD.getAllCobrancaPagasOf(usuario.getId(),data));
+        if(jRadioButtonPagos.isSelected() || jRadioButtonTodos.isSelected())
+            jButtonPagar.setEnabled(false);
+        else
+            jButtonPagar.setEnabled(true);
         validate();
         repaint();
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jRadioButtonTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonTodosActionPerformed
-
+        
     }//GEN-LAST:event_jRadioButtonTodosActionPerformed
 
     private void jRadioButtonPendentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPendentesActionPerformed
-
+        
     }//GEN-LAST:event_jRadioButtonPendentesActionPerformed
 
     private void jRadioButtonPagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonPagosActionPerformed
-
+        
     }//GEN-LAST:event_jRadioButtonPagosActionPerformed
 
     private void jButtonPagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPagarActionPerformed
         if(jRadioButtonPendentes.isSelected()){
-            
-        }
-        else{
-            //JOptionPane.showMessageDialog(this, "Erro", "Selecione ao menos  ", WIDTH);
+            if(jPanelUsuario.getValorSelecionados()>0)
+                new IUPagamento(jPanelUsuario.getSelecionados(),jPanelUsuario.getValorSelecionados());
+            else
+                JOptionPane.showMessageDialog(null, "Selecione ao menos uma faixa.", "Erro", 2);
         }
     }//GEN-LAST:event_jButtonPagarActionPerformed
 

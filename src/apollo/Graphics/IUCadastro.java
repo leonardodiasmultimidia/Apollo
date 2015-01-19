@@ -13,7 +13,6 @@ import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.JOptionPane;
-import sun.awt.WindowClosingListener;
 
 /**
  *
@@ -164,6 +163,7 @@ public class IUCadastro extends javax.swing.JFrame implements WindowListener{
             Usuario usuario = new Usuario(-1, jTextFieldNome.getText(), jTextFieldEmail.getText(), jPasswordFieldSenha.getText());
             BD.adicionaUsuario(usuario);
             Data.salvarUsuarios();
+            Data.salvarConfiguracoes();
             new IULogin();
             dispose();
         }

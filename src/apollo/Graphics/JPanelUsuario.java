@@ -69,6 +69,7 @@ public class JPanelUsuario extends JPanel{
                     }
                     line2 = new JCBox();
                     line2.setText(cobranca.getFaixa().getNome() + " - " + cobranca.getFaixa().getAutor() + " R$ " + cobranca.getFaixa().getValor());
+                    line2.add(cobranca);
                     line1.add(line2);
                     line2.setBounds(posX+20, posY, 600, 20);
                     cobrancas.add(line2);
@@ -96,6 +97,14 @@ public class JPanelUsuario extends JPanel{
         for(JCBox jCBox:cobrancas)
             if(jCBox.isSelected())
                 jCBox.getElement().pagar();
+    }
+    
+    public ArrayList<Cobranca> getSelecionados(){
+        ArrayList<Cobranca> retorno = new ArrayList<Cobranca>();
+        for(JCBox jCBox:cobrancas)
+            if(jCBox.isSelected())
+                retorno.add(jCBox.getElement());
+        return retorno;
     }
     
     public float getValorSelecionados(){

@@ -18,9 +18,8 @@ public class Configuracoes {
     private static boolean shuffle = false;
     private static int repeatState = 0;
     
-    public static void changeRepeatState(){
-        repeatState++;
-        if(repeatState>=3) repeatState = 0;
+    public static void changeRepeatState(int repeatState){
+        Configuracoes.repeatState = repeatState;
     }
     
     public static void changeShuffle(){
